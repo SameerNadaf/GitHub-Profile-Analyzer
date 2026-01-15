@@ -130,7 +130,7 @@ struct SearchScreen: View {
                 .padding()
                 .background(
                     isValidUsername
-                        ? Color.blue.gradient
+                        ? Color.blue
                         : Color.gray.opacity(0.3)
                 )
                 .foregroundColor(.white)

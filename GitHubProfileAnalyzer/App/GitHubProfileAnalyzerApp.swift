@@ -76,7 +76,7 @@ extension Route: Identifiable {
             return "search"
         case .profile(let username):
             return "profile-\(username)"
-        case .repositoryList(let username, _):
+        case .repositoryList(let username):
             return "repos-\(username)"
         case .comparison(let usernames):
             return "comparison-\(usernames.joined(separator: "-"))"

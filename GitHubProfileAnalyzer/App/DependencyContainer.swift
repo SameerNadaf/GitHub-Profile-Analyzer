@@ -152,9 +152,7 @@ struct Injected<T> {
     }
     
     init() {
-        // Resolve on main actor
-        if let resolved = DependencyContainer.shared.resolve(T.self) {
-            self.dependency = resolved
-        }
+        // Will be resolved lazily on first access
+        self.dependency = nil
     }
 }

@@ -205,7 +205,7 @@ struct ProfileScreen: View {
                 Spacer()
                 
                 Button(action: {
-                    router.navigate(to: .repositoryList(username: username, repositories: data.repositories))
+                    router.navigate(to: .repositoryList(username: username))
                 }) {
                     HStack(spacing: 4) {
                         Text("See All")
@@ -360,7 +360,7 @@ extension Color {
 
 #Preview {
     NavigationStack {
-        ProfileScreen(username: "octocat")
+        ProfileScreen(username: "sameernadaf")
             .environmentObject(AppRouter())
     }
 }

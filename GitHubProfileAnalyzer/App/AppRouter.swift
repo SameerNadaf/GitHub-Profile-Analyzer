@@ -14,7 +14,7 @@ import SwiftUI
 enum Route: Hashable {
     case search
     case profile(username: String)
-    case repositoryList(username: String, repositories: [Repository])
+    case repositoryList(username: String)
     case comparison(usernames: [String])
     
     // MARK: - Route Metadata
@@ -117,8 +117,9 @@ final class AppRouter: ObservableObject {
         case .profile(let username):
             ProfileScreen(username: username)
             
-        case .repositoryList(let username, let repositories):
-            RepositoryListScreen(repositories: repositories, username: username)
+        case .repositoryList(let username):
+            // RepositoryListScreen will fetch its own data
+            RepositoryListScreen(repositories: [], username: username)
             
         case .comparison(let usernames):
             ComparisonPlaceholderView(usernames: usernames)

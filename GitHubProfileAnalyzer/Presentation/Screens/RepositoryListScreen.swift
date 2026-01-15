@@ -59,6 +59,8 @@ struct RepositoryListScreen: View {
     let repositories: [Repository]
     let username: String
     
+    @State private var loadedRepositories: [Repository]?
+    @State private var isLoading = false
     @State private var sortOption: RepositorySortOption = .updated
     @State private var filterOption: RepositoryFilterOption = .all
     @State private var searchText = ""
@@ -67,10 +69,14 @@ struct RepositoryListScreen: View {
     
     @Environment(\.openURL) private var openURL
     
+    private var allRepositories: [Repository] {
+        loadedRepositories ?? repositories
+    }
+    
     // MARK: - Computed Properties
     
     private var filteredAndSortedRepos: [Repository] {
-        var result = filterOption.filter(repositories)
+        var result = filterOption.filter(allRepositories)
         
         // Apply search
         if !searchText.isEmpty {
@@ -93,7 +99,11 @@ struct RepositoryListScreen: View {
             controlsBar
             
             // Repository list
-            if filteredAndSortedRepos.isEmpty {
+            if isLoading {
+                ProgressView("Loading repositories...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(.systemGray6))
+            } else if filteredAndSortedRepos.isEmpty {
                 emptyState
             } else {
                 repositoryList
@@ -120,6 +130,27 @@ struct RepositoryListScreen: View {
         }
         .sheet(isPresented: $showFilterSheet) {
             filterSheet
+        }
+        .task {
+            await loadRepositoriesIfNeeded()
+        }
+    }
+    
+    // MARK: - Data Loading
+    
+    private func loadRepositoriesIfNeeded() async {
+        guard repositories.isEmpty, loadedRepositories == nil else { return }
+        
+        isLoading = true
+        defer { isLoading = false }
+        
+        do {
+            let apiClient = GitHubAPIClient()
+            let dtos = try await apiClient.fetchAllRepositories(username: username, maxRepos: 100)
+            loadedRepositories = RepositoryMapper.toDomain(dtos)
+        } catch {
+            // Failed to load, will show empty state
+            loadedRepositories = []
         }
     }
     
@@ -292,7 +323,7 @@ struct RepositoryListScreen: View {
                             
                             Spacer()
                             
-                            Text("\(option.filter(repositories).count)")
+                            Text("\(option.filter(allRepositories).count)")
                                 .foregroundColor(.secondary)
                             
                             if filterOption == option {
@@ -321,7 +352,7 @@ struct RepositoryListScreen: View {
     NavigationStack {
         RepositoryListScreen(
             repositories: [],
-            username: "octocat"
+            username: "SameerNadaf"
         )
     }
 }
