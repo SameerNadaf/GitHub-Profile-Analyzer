@@ -105,8 +105,13 @@ struct ProfileScreen: View {
             }
             
             activityStatusCard(data.activityStatus)
+            
+            // Charts Section
+            LanguageChart(languages: data.languageStats.languages)
+            ActivityChart(repositories: data.repositories)
+            StatsChart(repositories: data.repositories)
+            
             repositorySummary(data)
-            languageBreakdown(data.languageStats)
         }
     }
     
