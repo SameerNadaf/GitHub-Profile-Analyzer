@@ -50,7 +50,7 @@ final class FetchProfileUseCase: FetchProfileUseCaseProtocol, @unchecked Sendabl
         do {
             // Fetch user and repos concurrently
             async let userTask = apiClient.fetchUser(username: trimmedUsername)
-            async let reposTask = apiClient.fetchAllRepositories(username: trimmedUsername, maxRepos: 100)
+            async let reposTask = apiClient.fetchAllRepositories(username: trimmedUsername, maxRepos: 500)
             async let eventsTask = fetchRecentEvents(username: trimmedUsername)
             
             let (userDTO, repoDTOs, events) = try await (userTask, reposTask, eventsTask)

@@ -146,7 +146,7 @@ struct RepositoryListScreen: View {
         
         do {
             let apiClient = GitHubAPIClient()
-            let dtos = try await apiClient.fetchAllRepositories(username: username, maxRepos: 100)
+            let dtos = try await apiClient.fetchAllRepositories(username: username, maxRepos: 500)
             loadedRepositories = RepositoryMapper.toDomain(dtos)
         } catch {
             // Failed to load, will show empty state
