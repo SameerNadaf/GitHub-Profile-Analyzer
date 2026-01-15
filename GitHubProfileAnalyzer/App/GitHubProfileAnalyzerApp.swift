@@ -18,6 +18,9 @@ struct GitHubProfileAnalyzerApp: App {
     /// App router for navigation management
     @StateObject private var router = AppRouter()
     
+    /// OAuth service for authentication
+    @StateObject private var oauthService = OAuthService()
+    
     // MARK: - Body
     
     var body: some Scene {
@@ -25,6 +28,7 @@ struct GitHubProfileAnalyzerApp: App {
             RootView()
                 .environmentObject(router)
                 .environmentObject(container)
+                .environmentObject(oauthService)
         }
     }
 }
