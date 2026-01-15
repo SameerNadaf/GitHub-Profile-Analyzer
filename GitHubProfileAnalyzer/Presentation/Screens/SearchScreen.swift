@@ -76,7 +76,7 @@ struct SearchScreen: View {
     }
     
     private var searchSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 12) {
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
@@ -87,6 +87,9 @@ struct SearchScreen: View {
                     .submitLabel(.search)
                     .focused($isSearchFocused)
                     .onSubmit(performSearch)
+                    .onChange(of: searchText) { _, _ in
+                        // Clear validation on typing
+                    }
                 
                 if !searchText.isEmpty {
                     Button(action: { searchText = "" }) {
@@ -100,6 +103,23 @@ struct SearchScreen: View {
             .cornerRadius(12)
             .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
             
+            // Validation feedback
+            if !searchText.isEmpty {
+                let validation = UsernameValidator.validate(searchText)
+                if !validation.isValid, let message = validation.message {
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.orange)
+                            .font(.caption)
+                        Text(message)
+                            .font(.caption)
+                            .foregroundColor(.orange)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 4)
+                }
+            }
+            
             Button(action: performSearch) {
                 HStack {
                     Image(systemName: "arrow.right.circle.fill")
@@ -109,15 +129,19 @@ struct SearchScreen: View {
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(
-                    searchText.isEmpty
-                        ? Color.gray.opacity(0.3)
-                        : Color.blue.gradient
+                    isValidUsername
+                        ? Color.blue.gradient
+                        : Color.gray.opacity(0.3)
                 )
                 .foregroundColor(.white)
                 .cornerRadius(12)
             }
-            .disabled(searchText.isEmpty)
+            .disabled(!isValidUsername)
         }
+    }
+    
+    private var isValidUsername: Bool {
+        !searchText.isEmpty && UsernameValidator.validate(searchText).isValid
     }
     
     private var recentSearchesSection: some View {

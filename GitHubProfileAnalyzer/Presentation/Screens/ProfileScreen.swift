@@ -63,33 +63,7 @@ struct ProfileScreen: View {
     // MARK: - Loading View
     
     private var loadingView: some View {
-        VStack(spacing: 24) {
-            // Avatar placeholder with shimmer
-            Circle()
-                .fill(Color(.systemGray5))
-                .frame(width: 120, height: 120)
-                .overlay(
-                    ProgressView()
-                        .scaleEffect(1.5)
-                )
-            
-            VStack(spacing: 8) {
-                Text("Loading profile...")
-                    .font(.headline)
-                
-                Text("@\(username)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            
-            // Placeholder cards
-            ForEach(0..<3, id: \.self) { _ in
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.systemGray6))
-                    .frame(height: 80)
-            }
-        }
-        .padding(.top, 40)
+        ProfileSkeleton()
     }
     
     // MARK: - Profile Content
