@@ -94,8 +94,10 @@ final class DependencyContainer: ObservableObject, DependencyContainerProtocol {
     // MARK: - Default Registrations
     
     private func registerDefaults() {
-        // Services will be registered here as they are created
-        // Example: registerLazySingleton(GitHubAPIClientProtocol.self) { GitHubAPIClient() }
+        // Network Client
+        registerLazySingleton(NetworkClientProtocol.self) {
+            NetworkClient()
+        }
     }
     
     // MARK: - Testing Support
