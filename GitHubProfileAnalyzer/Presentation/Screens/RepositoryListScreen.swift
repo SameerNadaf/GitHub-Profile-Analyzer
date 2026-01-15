@@ -138,19 +138,56 @@ struct RepositoryListScreen: View {
     
     // MARK: - Data Loading
     
+    @State private var currentPage = 1
+    @State private var hasMorePages = true
+    @State private var isFetchingMore = false
+    
+    // MARK: - Data Loading
+    
     private func loadRepositoriesIfNeeded() async {
         guard repositories.isEmpty, loadedRepositories == nil else { return }
         
         isLoading = true
         defer { isLoading = false }
         
+        await fetchPage(1)
+    }
+    
+    private func loadMore() async {
+        guard !isLoading && !isFetchingMore && hasMorePages else { return }
+        
+        isFetchingMore = true
+        defer { isFetchingMore = false }
+        
+        await fetchPage(currentPage + 1)
+    }
+    
+    private func fetchPage(_ page: Int) async {
         do {
             let apiClient = GitHubAPIClient()
-            let dtos = try await apiClient.fetchAllRepositories(username: username, maxRepos: 500)
-            loadedRepositories = RepositoryMapper.toDomain(dtos)
+            let dtos = try await apiClient.fetchRepositories(username: username, page: page, perPage: 30)
+            let newRepos = RepositoryMapper.toDomain(dtos)
+            
+            if page == 1 {
+                loadedRepositories = newRepos
+            } else {
+                loadedRepositories?.append(contentsOf: newRepos)
+            }
+            
+            // If we got fewer items than requested, we've reached the end
+            if newRepos.count < 30 {
+                hasMorePages = false
+            } else {
+                currentPage = page
+                hasMorePages = true
+            }
         } catch {
-            // Failed to load, will show empty state
-            loadedRepositories = []
+            print("Failed to load page \(page): \(error)")
+            if page == 1 {
+                loadedRepositories = [] 
+            }
+            // Stop pagination on error
+            hasMorePages = false
         }
     }
     
@@ -233,6 +270,18 @@ struct RepositoryListScreen: View {
                             openURL(url)
                         }
                     }
+                }
+                
+                // Pagination Trigger
+                if hasMorePages && filterOption == .all && searchText.isEmpty && sortOption == .updated {
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .onAppear {
+                            Task {
+                                await loadMore()
+                            }
+                        }
                 }
             }
             .padding()
