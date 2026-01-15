@@ -49,7 +49,11 @@ struct SearchScreen: View {
             .ignoresSafeArea()
         )
         .navigationTitle("")
-        .navigationBarHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                LoginView()
+            }
+        }
         .onTapGesture {
             isSearchFocused = false
         }

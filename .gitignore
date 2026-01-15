@@ -1,0 +1,6 @@
+Secrets.xcconfig
+GitHubProfileAnalyzer/Config/Secrets.xcconfig
+.DS_Store
+*.xcuserdata
+*.xcworkspace
+xcuserdata/

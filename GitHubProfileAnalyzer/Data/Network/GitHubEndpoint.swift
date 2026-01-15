@@ -14,6 +14,9 @@ enum GitHubEndpoint: APIEndpoint {
     
     // MARK: - User Endpoints
     
+    /// Get authenticated user profile
+    case authenticatedUser
+    
     /// Get user profile
     case user(username: String)
     
@@ -45,6 +48,9 @@ enum GitHubEndpoint: APIEndpoint {
     
     var path: String {
         switch self {
+        case .authenticatedUser:
+            return "/user"
+            
         case .user(let username):
             return "/users/\(username)"
             
@@ -96,10 +102,10 @@ enum GitHubEndpoint: APIEndpoint {
     var headers: [String: String]? {
         var headers = GitHubAPI.standardHeaders
         
-        // Add auth token if available (will be implemented in Phase 2)
-        // if let token = TokenStore.shared.accessToken {
-        //     headers["Authorization"] = "Bearer \(token)"
-        // }
+        // Add auth token if available
+        if let token = TokenStore.shared.get() {
+            headers["Authorization"] = "Bearer \(token)"
+        }
         
         return headers
     }

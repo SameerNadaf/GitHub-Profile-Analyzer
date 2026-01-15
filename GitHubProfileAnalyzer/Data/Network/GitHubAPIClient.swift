@@ -12,6 +12,9 @@ import Foundation
 /// Protocol for GitHub API operations
 /// Enables dependency injection and testing
 protocol GitHubAPIClientProtocol: Sendable {
+    /// Fetch authenticated user profile
+    func fetchAuthenticatedUser() async throws -> UserDTO
+    
     /// Fetch user profile
     func fetchUser(username: String) async throws -> UserDTO
     
@@ -47,6 +50,11 @@ final class GitHubAPIClient: GitHubAPIClientProtocol, @unchecked Sendable {
     }
     
     // MARK: - User Operations
+    
+    func fetchAuthenticatedUser() async throws -> UserDTO {
+        let endpoint = GitHubEndpoint.authenticatedUser
+        return try await networkClient.request(endpoint, responseType: UserDTO.self)
+    }
     
     func fetchUser(username: String) async throws -> UserDTO {
         let endpoint = GitHubEndpoint.user(username: username)
