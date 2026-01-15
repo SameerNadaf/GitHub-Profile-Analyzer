@@ -213,8 +213,23 @@ struct ProfileScreen: View {
     
     private func repositorySummary(_ data: ProfileData) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Repository Summary")
-                .font(.headline)
+            HStack {
+                Text("Repository Summary")
+                    .font(.headline)
+                
+                Spacer()
+                
+                Button(action: {
+                    router.navigate(to: .repositoryList(username: username, repositories: data.repositories))
+                }) {
+                    HStack(spacing: 4) {
+                        Text("See All")
+                        Image(systemName: "chevron.right")
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.blue)
+                }
+            }
             
             VStack(spacing: 8) {
                 summaryRow(label: "Total Repositories", value: "\(data.repositories.count)")
