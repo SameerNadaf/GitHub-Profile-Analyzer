@@ -128,4 +128,15 @@ enum UserActivityStatus: String, CaseIterable {
         case .dormant: return "zzz"
         }
     }
+    
+    /// Score for comparison (higher is better)
+    var score: Int {
+        switch self {
+        case .veryActive: return 4
+        case .active: return 3
+        case .moderate: return 2
+        case .inactive: return 1
+        case .dormant: return 0
+        }
+    }
 }

@@ -15,6 +15,7 @@ enum Route: Hashable {
     case search
     case profile(username: String)
     case repositoryList(username: String)
+    case comparisonInput
     case comparison(usernames: [String])
     
     // MARK: - Route Metadata
@@ -28,8 +29,10 @@ enum Route: Hashable {
             return username
         case .repositoryList:
             return "Repositories"
-        case .comparison:
+        case .comparisonInput:
             return "Compare Profiles"
+        case .comparison:
+            return "Comparison Results"
         }
     }
 }
@@ -121,8 +124,11 @@ final class AppRouter: ObservableObject {
             // RepositoryListScreen will fetch its own data
             RepositoryListScreen(repositories: [], username: username)
             
+        case .comparisonInput:
+            ComparisonInputScreen()
+            
         case .comparison(let usernames):
-            ComparisonPlaceholderView(usernames: usernames)
+            ComparisonScreen(usernames: usernames)
         }
     }
 }

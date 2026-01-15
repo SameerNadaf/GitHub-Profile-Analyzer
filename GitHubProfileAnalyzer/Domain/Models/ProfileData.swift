@@ -58,6 +58,11 @@ struct ProfileData: Equatable, Sendable {
         repositories.averageMaintenanceScore
     }
     
+    /// Total forks across all repos
+    var totalForks: Int {
+        repositories.reduce(0) { $0 + $1.forkCount }
+    }
+    
     /// Star to repo ratio
     var starToRepoRatio: Double {
         guard !repositories.isEmpty else { return 0 }

@@ -34,6 +34,33 @@ struct SearchScreen: View {
                     recentSearchesSection
                 }
                 
+                if !recentSearches.isEmpty {
+                    recentSearchesSection
+                }
+                
+                // Compare Profiles Entry
+                Button(action: { router.navigate(to: .comparisonInput) }) {
+                    HStack {
+                        Image(systemName: "arrow.left.arrow.right")
+                            .font(.title2)
+                        VStack(alignment: .leading) {
+                            Text("Compare Profiles")
+                                .font(.headline)
+                            Text("See who wins in stats")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
+                    .background(Color(.systemBackground))
+                    .cornerRadius(12)
+                    .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+                }
+                .foregroundColor(.primary)
+                
                 featuresPreview
             }
             .padding(.horizontal, 24)
