@@ -24,11 +24,13 @@ final class FetchProfileUseCase: FetchProfileUseCaseProtocol, @unchecked Sendabl
     // MARK: - Properties
     
     private let apiClient: GitHubAPIClientProtocol
+    private let cache: ProfileCache
     
     // MARK: - Initialization
     
-    init(apiClient: GitHubAPIClientProtocol = GitHubAPIClient()) {
+    init(apiClient: GitHubAPIClientProtocol = GitHubAPIClient(), cache: ProfileCache = .shared) {
         self.apiClient = apiClient
+        self.cache = cache
     }
     
     // MARK: - Public Methods
@@ -40,6 +42,11 @@ final class FetchProfileUseCase: FetchProfileUseCaseProtocol, @unchecked Sendabl
             throw ProfileError.userNotFound(username: username)
         }
         
+        // Check cache first
+        if let cached = await cache.get(username: trimmedUsername), cached.isFresh {
+            return cached
+        }
+        
         do {
             // Fetch user and repos concurrently
             async let userTask = apiClient.fetchUser(username: trimmedUsername)
@@ -47,7 +54,7 @@ final class FetchProfileUseCase: FetchProfileUseCaseProtocol, @unchecked Sendabl
             async let eventsTask = fetchRecentEvents(username: trimmedUsername)
             
             let (userDTO, repoDTOs, events) = try await (userTask, reposTask, eventsTask)
-            
+
             // Map DTOs to domain models
             let user = UserMapper.toDomain(userDTO)
             let repositories = RepositoryMapper.toDomain(repoDTOs)
@@ -67,7 +74,7 @@ final class FetchProfileUseCase: FetchProfileUseCaseProtocol, @unchecked Sendabl
                 events: events
             )
             
-            return ProfileData(
+            let profileData = ProfileData(
                 user: user,
                 repositories: repositories,
                 languageStats: languageStats,
@@ -76,6 +83,11 @@ final class FetchProfileUseCase: FetchProfileUseCaseProtocol, @unchecked Sendabl
                 analysisResult: analysisResult,
                 fetchedAt: Date()
             )
+            
+            // Cache the result
+            await cache.set(profileData, for: trimmedUsername)
+            
+            return profileData
             
         } catch let error as NetworkError {
             throw ProfileError.from(error, username: trimmedUsername)
