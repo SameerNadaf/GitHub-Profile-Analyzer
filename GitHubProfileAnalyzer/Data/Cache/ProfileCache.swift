@@ -221,11 +221,13 @@ struct CachedLanguageUsage: Codable {
 struct CachedAnalysisResult: Codable {
     let healthScoreOverall: Int
     let healthScoreRating: String
+    let breakdown: CachedScoreBreakdown
     let analyzedAt: Date
     
     init(from result: AnalysisResult) {
         self.healthScoreOverall = result.healthScore.overall
         self.healthScoreRating = result.healthScore.rating
+        self.breakdown = CachedScoreBreakdown(from: result.healthScore.breakdown)
         self.analyzedAt = result.analyzedAt
     }
     
@@ -233,13 +235,7 @@ struct CachedAnalysisResult: Codable {
         // Create minimal analysis result for cached display
         let healthScore = HealthScore(
             overall: healthScoreOverall,
-            breakdown: ScoreBreakdown(
-                activity: CategoryScore(name: "Activity", score: 0, weight: 0.30, details: "Cached"),
-                repositoryQuality: CategoryScore(name: "Repository Quality", score: 0, weight: 0.25, details: "Cached"),
-                community: CategoryScore(name: "Community", score: 0, weight: 0.20, details: "Cached"),
-                profileCompleteness: CategoryScore(name: "Profile", score: 0, weight: 0.15, details: "Cached"),
-                languageDiversity: CategoryScore(name: "Languages", score: 0, weight: 0.10, details: "Cached")
-            )
+            breakdown: breakdown.toScoreBreakdown()
         )
         
         return AnalysisResult(
@@ -286,6 +282,57 @@ struct CachedAnalysisResult: Codable {
                 diversityScore: 0
             ),
             analyzedAt: analyzedAt
+        )
+    }
+}
+
+// MARK: - Cached Score Breakdown
+
+struct CachedScoreBreakdown: Codable {
+    let activity: CachedCategoryScore
+    let repositoryQuality: CachedCategoryScore
+    let community: CachedCategoryScore
+    let profileCompleteness: CachedCategoryScore
+    let languageDiversity: CachedCategoryScore
+    
+    init(from breakdown: ScoreBreakdown) {
+        self.activity = CachedCategoryScore(from: breakdown.activity)
+        self.repositoryQuality = CachedCategoryScore(from: breakdown.repositoryQuality)
+        self.community = CachedCategoryScore(from: breakdown.community)
+        self.profileCompleteness = CachedCategoryScore(from: breakdown.profileCompleteness)
+        self.languageDiversity = CachedCategoryScore(from: breakdown.languageDiversity)
+    }
+    
+    func toScoreBreakdown() -> ScoreBreakdown {
+        ScoreBreakdown(
+            activity: activity.toCategoryScore(),
+            repositoryQuality: repositoryQuality.toCategoryScore(),
+            community: community.toCategoryScore(),
+            profileCompleteness: profileCompleteness.toCategoryScore(),
+            languageDiversity: languageDiversity.toCategoryScore()
+        )
+    }
+}
+
+struct CachedCategoryScore: Codable {
+    let name: String
+    let score: Int
+    let weight: Double
+    let details: String
+    
+    init(from category: CategoryScore) {
+        self.name = category.name
+        self.score = category.score
+        self.weight = category.weight
+        self.details = category.details
+    }
+    
+    func toCategoryScore() -> CategoryScore {
+        CategoryScore(
+            name: name,
+            score: score,
+            weight: weight,
+            details: details
         )
     }
 }
