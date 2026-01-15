@@ -83,10 +83,6 @@ struct LoginView: View {
                     .clipShape(Circle())
                     .overlay(Circle().stroke(Color.white, lineWidth: 1))
                     .shadow(radius: 2)
-                    
-                    Text(user.username)
-                        .font(.headline)
-                        .foregroundColor(.primary)
                 } else {
                     // Loading placeholder
                     Circle()
@@ -94,10 +90,6 @@ struct LoginView: View {
                         .frame(width: 32, height: 32)
                 }
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(Color(.systemGray6))
-            .cornerRadius(20)
         }
     }
     
