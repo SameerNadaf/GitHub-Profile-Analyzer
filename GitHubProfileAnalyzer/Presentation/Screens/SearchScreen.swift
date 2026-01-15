@@ -34,10 +34,6 @@ struct SearchScreen: View {
                     recentSearchesSection
                 }
                 
-                if !recentSearches.isEmpty {
-                    recentSearchesSection
-                }
-                
                 // Compare Profiles Entry
                 Button(action: { router.navigate(to: .comparisonInput) }) {
                     HStack {
