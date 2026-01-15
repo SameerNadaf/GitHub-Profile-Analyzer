@@ -1,0 +1,10 @@
+//
+//  Presentation Layer - ViewModels
+//  GitHubProfileAnalyzer
+//
+//  ViewModels follow the MVVM pattern and contain:
+//  - @Published properties for view state
+//  - Business logic coordination via UseCases
+//  - No direct network calls or data access
+//  - No UIKit/SwiftUI imports (only Combine/Foundation)
+//

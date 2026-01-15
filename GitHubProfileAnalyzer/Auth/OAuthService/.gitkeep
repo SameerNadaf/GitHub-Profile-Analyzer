@@ -1,0 +1,10 @@
+//
+//  Auth Layer - OAuthService
+//  GitHubProfileAnalyzer
+//
+//  OAuth Service (Phase 2):
+//  - GitHub OAuth 2.0 flow implementation
+//  - ASWebAuthenticationSession integration
+//  - Token exchange and refresh
+//  - Secure callback URL handling
+//

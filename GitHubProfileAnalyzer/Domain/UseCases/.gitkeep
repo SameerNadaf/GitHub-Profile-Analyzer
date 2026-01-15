@@ -1,0 +1,10 @@
+//
+//  Domain Layer - UseCases
+//  GitHubProfileAnalyzer
+//
+//  UseCases encapsulate business operations:
+//  - Single responsibility (one use case per business operation)
+//  - Depend on repository protocols (not implementations)
+//  - Coordinate between multiple repositories/services
+//  - Examples: FetchProfileUseCase, AnalyzeProfileUseCase
+//

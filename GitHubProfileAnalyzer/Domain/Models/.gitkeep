@@ -1,0 +1,10 @@
+//
+//  Domain Layer - Models
+//  GitHubProfileAnalyzer
+//
+//  Domain models represent the core business entities:
+//  - Pure Swift structs (no dependencies on external frameworks)
+//  - Immutable where possible
+//  - Conform to Equatable, Hashable, Sendable as needed
+//  - Independent of Data layer DTOs
+//

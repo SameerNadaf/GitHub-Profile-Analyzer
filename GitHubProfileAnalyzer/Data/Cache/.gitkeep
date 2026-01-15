@@ -1,0 +1,10 @@
+//
+//  Data Layer - Cache
+//  GitHubProfileAnalyzer
+//
+//  Cache layer for offline support:
+//  - Disk-based caching (FileManager or CoreData)
+//  - TTL (Time-To-Live) management
+//  - Cache invalidation strategies
+//  - Memory cache for performance
+//

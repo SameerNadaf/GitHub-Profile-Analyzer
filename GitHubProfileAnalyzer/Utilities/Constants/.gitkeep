@@ -1,0 +1,10 @@
+//
+//  Utilities - Constants
+//  GitHubProfileAnalyzer
+//
+//  App-wide constants:
+//  - API endpoints and base URLs
+//  - Cache TTL durations
+//  - UI sizing constants
+//  - Feature flags
+//

@@ -1,0 +1,10 @@
+//
+//  Presentation Layer - Components
+//  GitHubProfileAnalyzer
+//
+//  Reusable SwiftUI components:
+//  - Stateless or minimal state
+//  - Highly configurable via initializers
+//  - No business logic
+//  - Examples: ProfileCard, StatBadge, ChartView
+//

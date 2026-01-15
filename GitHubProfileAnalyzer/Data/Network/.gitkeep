@@ -1,0 +1,11 @@
+//
+//  Data Layer - Network
+//  GitHubProfileAnalyzer
+//
+//  Network layer responsibilities:
+//  - URLSession-based API client
+//  - Request/Response handling
+//  - Rate limit management
+//  - Pagination support
+//  - Error transformation
+//

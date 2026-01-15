@@ -1,0 +1,10 @@
+//
+//  Data Layer - Mappers
+//  GitHubProfileAnalyzer
+//
+//  Mappers transform DTOs to Domain models:
+//  - Pure functions with no side effects
+//  - Handle optional/missing fields gracefully
+//  - Single responsibility per mapper
+//  - Example: UserDTOMapper.toDomain(dto:) -> User
+//

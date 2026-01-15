@@ -1,0 +1,10 @@
+//
+//  Data Layer - DTOs
+//  GitHubProfileAnalyzer
+//
+//  Data Transfer Objects (DTOs):
+//  - Direct mapping from GitHub API JSON responses
+//  - Codable conformance for JSON parsing
+//  - Should NOT contain business logic
+//  - Transformed to Domain models via Mappers
+//
