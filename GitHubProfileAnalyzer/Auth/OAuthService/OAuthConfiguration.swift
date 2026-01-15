@@ -12,9 +12,15 @@ struct OAuthConfiguration {
     
     // MARK: - Credentials
     
-    // TODO: Replace with your actual Client ID and Secret
-    static let clientID = "YOUR_CLIENT_ID"
-    static let clientSecret = "YOUR_CLIENT_SECRET"
+    // MARK: - Credentials
+    
+    static var clientID: String {
+        Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT_ID") as? String ?? ""
+    }
+    
+    static var clientSecret: String {
+        Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT_SECRET") as? String ?? ""
+    }
     
     // MARK: - Configuration
     
