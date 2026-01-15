@@ -15,17 +15,31 @@ struct SearchScreen: View {
     
     @EnvironmentObject private var router: AppRouter
     @State private var searchText = ""
+    @State private var recentSearches: [String] = []
+    @FocusState private var isSearchFocused: Bool
+    
+    // MARK: - Constants
+    
+    private let maxRecentSearches = 5
     
     // MARK: - Body
     
     var body: some View {
-        VStack(spacing: 32) {
-            headerSection
-            searchSection
-            Spacer()
+        ScrollView {
+            VStack(spacing: 32) {
+                headerSection
+                searchSection
+                
+                if !recentSearches.isEmpty {
+                    recentSearchesSection
+                }
+                
+                featuresPreview
+            }
+            .padding(.horizontal, 24)
+            .padding(.top, 40)
+            .padding(.bottom, 40)
         }
-        .padding(.horizontal, 24)
-        .padding(.top, 60)
         .background(
             LinearGradient(
                 colors: [Color(.systemBackground), Color(.systemGray6)],
@@ -36,6 +50,9 @@ struct SearchScreen: View {
         )
         .navigationTitle("")
         .navigationBarHidden(true)
+        .onTapGesture {
+            isSearchFocused = false
+        }
     }
     
     // MARK: - View Components
@@ -45,6 +62,7 @@ struct SearchScreen: View {
             Image(systemName: "person.crop.circle.badge.checkmark")
                 .font(.system(size: 80))
                 .foregroundStyle(.blue.gradient)
+                .shadow(color: .blue.opacity(0.3), radius: 10, y: 5)
             
             Text("GitHub Profile Analyzer")
                 .font(.system(size: 28, weight: .bold, design: .rounded))
@@ -67,6 +85,7 @@ struct SearchScreen: View {
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .submitLabel(.search)
+                    .focused($isSearchFocused)
                     .onSubmit(performSearch)
                 
                 if !searchText.isEmpty {
@@ -101,13 +120,152 @@ struct SearchScreen: View {
         }
     }
     
+    private var recentSearchesSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Recent Searches")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                
+                Spacer()
+                
+                Button("Clear") {
+                    withAnimation {
+                        recentSearches.removeAll()
+                    }
+                }
+                .font(.caption)
+                .foregroundColor(.blue)
+            }
+            
+            FlowLayout(spacing: 8) {
+                ForEach(recentSearches, id: \.self) { username in
+                    Button(action: { searchUsername(username) }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "clock.arrow.circlepath")
+                                .font(.caption)
+                            Text(username)
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color(.systemGray5))
+                        .cornerRadius(20)
+                        .foregroundColor(.primary)
+                    }
+                }
+            }
+        }
+    }
+    
+    private var featuresPreview: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("What You'll Discover")
+                .font(.headline)
+                .foregroundColor(.secondary)
+            
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                featureCard(icon: "chart.pie.fill", title: "Languages", color: .purple)
+                featureCard(icon: "chart.line.uptrend.xyaxis", title: "Activity", color: .green)
+                featureCard(icon: "star.fill", title: "Repo Stats", color: .orange)
+                featureCard(icon: "heart.fill", title: "Health Score", color: .red)
+            }
+        }
+    }
+    
+    private func featureCard(icon: String, title: String, color: Color) -> some View {
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundColor(color)
+            
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(0.03), radius: 4, y: 2)
+    }
+    
     // MARK: - Actions
     
     private func performSearch() {
         let trimmedUsername = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedUsername.isEmpty else { return }
         
-        router.navigate(to: .profile(username: trimmedUsername))
+        searchUsername(trimmedUsername)
+    }
+    
+    private func searchUsername(_ username: String) {
+        // Add to recent searches
+        addToRecentSearches(username)
+        
+        // Navigate to profile
+        router.navigate(to: .profile(username: username))
+        
+        // Clear search field
+        searchText = ""
+        isSearchFocused = false
+    }
+    
+    private func addToRecentSearches(_ username: String) {
+        // Remove if already exists
+        recentSearches.removeAll { $0.lowercased() == username.lowercased() }
+        
+        // Insert at beginning
+        recentSearches.insert(username, at: 0)
+        
+        // Limit to max
+        if recentSearches.count > maxRecentSearches {
+            recentSearches = Array(recentSearches.prefix(maxRecentSearches))
+        }
+    }
+}
+
+// MARK: - Flow Layout
+
+/// A simple flow layout for tags/chips
+struct FlowLayout: Layout {
+    var spacing: CGFloat = 8
+    
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let result = arrangeSubviews(proposal: proposal, subviews: subviews)
+        return result.size
+    }
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let result = arrangeSubviews(proposal: proposal, subviews: subviews)
+        
+        for (index, subview) in subviews.enumerated() {
+            let position = result.positions[index]
+            subview.place(at: CGPoint(x: bounds.minX + position.x, y: bounds.minY + position.y), proposal: .unspecified)
+        }
+    }
+    
+    private func arrangeSubviews(proposal: ProposedViewSize, subviews: Subviews) -> (size: CGSize, positions: [CGPoint]) {
+        let maxWidth = proposal.width ?? .infinity
+        var positions: [CGPoint] = []
+        var currentX: CGFloat = 0
+        var currentY: CGFloat = 0
+        var lineHeight: CGFloat = 0
+        
+        for subview in subviews {
+            let size = subview.sizeThatFits(.unspecified)
+            
+            if currentX + size.width > maxWidth, currentX > 0 {
+                currentX = 0
+                currentY += lineHeight + spacing
+                lineHeight = 0
+            }
+            
+            positions.append(CGPoint(x: currentX, y: currentY))
+            lineHeight = max(lineHeight, size.height)
+            currentX += size.width + spacing
+        }
+        
+        return (CGSize(width: maxWidth, height: currentY + lineHeight), positions)
     }
 }
 
