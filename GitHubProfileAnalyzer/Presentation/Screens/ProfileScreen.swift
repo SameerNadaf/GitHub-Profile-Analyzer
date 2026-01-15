@@ -8,26 +8,35 @@
 import SwiftUI
 
 /// Profile screen that displays GitHub user analysis
-/// This is a placeholder that will be enhanced in Step 6
 struct ProfileScreen: View {
     
     // MARK: - Properties
     
     let username: String
+    @StateObject private var viewModel: ProfileViewModel
     @EnvironmentObject private var router: AppRouter
-    @State private var isLoading = false
+    
+    // MARK: - Initialization
+    
+    init(username: String) {
+        self.username = username
+        self._viewModel = StateObject(wrappedValue: ProfileViewModel(username: username))
+    }
     
     // MARK: - Body
     
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                profileHeader
-                
-                if isLoading {
+                switch viewModel.state {
+                case .idle, .loading:
                     loadingView
-                } else {
-                    placeholderContent
+                    
+                case .loaded(let profileData):
+                    profileContent(profileData)
+                    
+                case .error(let error):
+                    errorView(error)
                 }
             }
             .padding()
@@ -36,80 +45,143 @@ struct ProfileScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: shareProfile) {
-                    Image(systemName: "square.and.arrow.up")
+                if viewModel.state.profileData != nil {
+                    Button(action: shareProfile) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
                 }
             }
         }
-    }
-    
-    // MARK: - View Components
-    
-    private var profileHeader: some View {
-        VStack(spacing: 16) {
-            // Avatar placeholder
-            Circle()
-                .fill(
-                    LinearGradient(
-                        colors: [.blue, .purple],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .frame(width: 120, height: 120)
-                .overlay(
-                    Text(username.prefix(1).uppercased())
-                        .font(.system(size: 48, weight: .bold))
-                        .foregroundColor(.white)
-                )
-                .shadow(color: .blue.opacity(0.3), radius: 10, y: 5)
-            
-            Text("@\(username)")
-                .font(.title2.bold())
-            
-            Text("Profile data will load here")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+        .refreshable {
+            viewModel.refresh()
         }
-        .padding(.top, 20)
+        .task {
+            viewModel.loadProfile()
+        }
     }
+    
+    // MARK: - Loading View
     
     private var loadingView: some View {
-        VStack(spacing: 16) {
-            ProgressView()
-                .scaleEffect(1.5)
+        VStack(spacing: 24) {
+            // Avatar placeholder with shimmer
+            Circle()
+                .fill(Color(.systemGray5))
+                .frame(width: 120, height: 120)
+                .overlay(
+                    ProgressView()
+                        .scaleEffect(1.5)
+                )
             
-            Text("Analyzing profile...")
-                .foregroundColor(.secondary)
+            VStack(spacing: 8) {
+                Text("Loading profile...")
+                    .font(.headline)
+                
+                Text("@\(username)")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            
+            // Placeholder cards
+            ForEach(0..<3, id: \.self) { _ in
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(.systemGray6))
+                    .frame(height: 80)
+            }
         }
-        .frame(height: 200)
+        .padding(.top, 40)
     }
     
-    private var placeholderContent: some View {
-        VStack(spacing: 20) {
-            // Stats placeholder
-            HStack(spacing: 0) {
-                statItem(title: "Repos", value: "--")
-                Divider().frame(height: 40)
-                statItem(title: "Followers", value: "--")
-                Divider().frame(height: 40)
-                statItem(title: "Following", value: "--")
+    // MARK: - Profile Content
+    
+    private func profileContent(_ data: ProfileData) -> some View {
+        VStack(spacing: 24) {
+            profileHeader(data.user)
+            statsBar(data)
+            activityStatusCard(data.activityStatus)
+            repositorySummary(data)
+            languageBreakdown(data.languageStats)
+        }
+    }
+    
+    private func profileHeader(_ user: GitHubUser) -> some View {
+        VStack(spacing: 16) {
+            // Avatar
+            AsyncImage(url: user.avatarURL) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                case .failure:
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .foregroundColor(.gray)
+                default:
+                    Circle()
+                        .fill(Color(.systemGray5))
+                        .overlay(ProgressView())
+                }
             }
-            .padding()
-            .background(Color(.systemGray6))
-            .cornerRadius(12)
+            .frame(width: 120, height: 120)
+            .clipShape(Circle())
+            .shadow(color: .black.opacity(0.1), radius: 10, y: 5)
             
-            // Coming soon sections
-            ForEach(["Profile Insights", "Repository Metrics", "Activity Analysis"], id: \.self) { section in
-                sectionPlaceholder(title: section)
+            VStack(spacing: 4) {
+                if let displayName = user.displayName {
+                    Text(displayName)
+                        .font(.title2.bold())
+                }
+                
+                Text("@\(user.username)")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            
+            if let bio = user.bio {
+                Text(bio)
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(3)
+            }
+            
+            // Account info badges
+            HStack(spacing: 16) {
+                Label(user.accountAgeFormatted, systemImage: "calendar")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                
+                if let location = user.location {
+                    Label(location, systemImage: "mappin")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
             }
         }
+        .padding(.top, 8)
+    }
+    
+    private func statsBar(_ data: ProfileData) -> some View {
+        HStack(spacing: 0) {
+            statItem(title: "Repos", value: "\(data.user.publicRepoCount)")
+            Divider().frame(height: 40)
+            statItem(title: "Followers", value: formatNumber(data.user.followerCount))
+            Divider().frame(height: 40)
+            statItem(title: "Following", value: formatNumber(data.user.followingCount))
+            Divider().frame(height: 40)
+            statItem(title: "Stars", value: formatNumber(data.totalStars))
+        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
     }
     
     private func statItem(title: String, value: String) -> some View {
         VStack(spacing: 4) {
             Text(value)
-                .font(.title2.bold())
+                .font(.title3.bold())
             Text(title)
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -117,25 +189,170 @@ struct ProfileScreen: View {
         .frame(maxWidth: .infinity)
     }
     
-    private func sectionPlaceholder(title: String) -> some View {
+    private func activityStatusCard(_ status: UserActivityStatus) -> some View {
+        HStack {
+            Image(systemName: status.iconName)
+                .font(.title2)
+                .foregroundColor(colorForStatus(status))
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Activity Status")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Text(status.rawValue)
+                    .font(.headline)
+                    .foregroundColor(colorForStatus(status))
+            }
+            
+            Spacer()
+        }
+        .padding()
+        .background(colorForStatus(status).opacity(0.1))
+        .cornerRadius(12)
+    }
+    
+    private func repositorySummary(_ data: ProfileData) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(title)
+            Text("Repository Summary")
                 .font(.headline)
             
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color(.systemGray6))
-                .frame(height: 100)
-                .overlay(
-                    Text("Coming in Step 6+")
-                        .foregroundColor(.secondary)
-                )
+            VStack(spacing: 8) {
+                summaryRow(label: "Total Repositories", value: "\(data.repositories.count)")
+                summaryRow(label: "Original (non-fork)", value: "\(data.originalRepos.count)")
+                summaryRow(label: "Active (6 months)", value: "\(data.activeRepos.count)")
+                summaryRow(label: "Avg Maintenance", value: "\(Int(data.averageMaintenanceScore))%")
+                if data.starToRepoRatio > 0 {
+                    summaryRow(label: "Stars per Repo", value: String(format: "%.1f", data.starToRepoRatio))
+                }
+            }
+            .padding()
+            .background(Color(.systemGray6))
+            .cornerRadius(12)
         }
     }
     
-    // MARK: - Actions
+    private func summaryRow(label: String, value: String) -> some View {
+        HStack {
+            Text(label)
+                .foregroundColor(.secondary)
+            Spacer()
+            Text(value)
+                .fontWeight(.medium)
+        }
+        .font(.subheadline)
+    }
+    
+    private func languageBreakdown(_ stats: LanguageStatistics) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Languages")
+                    .font(.headline)
+                Spacer()
+                Text("Diversity: \(stats.diversityScore)%")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            if stats.languages.isEmpty {
+                Text("No language data available")
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+            } else {
+                ForEach(stats.languages.prefix(5)) { lang in
+                    HStack {
+                        Circle()
+                            .fill(Color(hex: lang.colorHex) ?? .gray)
+                            .frame(width: 12, height: 12)
+                        
+                        Text(lang.name)
+                            .font(.subheadline)
+                        
+                        Spacer()
+                        
+                        Text("\(String(format: "%.1f", lang.percentage))%")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
+    }
+    
+    // MARK: - Error View
+    
+    private func errorView(_ error: ProfileError) -> some View {
+        VStack(spacing: 24) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 60))
+                .foregroundColor(.orange)
+            
+            VStack(spacing: 8) {
+                Text(error.errorDescription ?? "An error occurred")
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                
+                if let suggestion = error.recoverySuggestion {
+                    Text(suggestion)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+            }
+            
+            Button(action: { viewModel.refresh() }) {
+                Label("Try Again", systemImage: "arrow.clockwise")
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 12)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+        }
+        .padding(.top, 60)
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func formatNumber(_ number: Int) -> String {
+        if number >= 1000 {
+            return String(format: "%.1fK", Double(number) / 1000)
+        }
+        return "\(number)"
+    }
+    
+    private func colorForStatus(_ status: UserActivityStatus) -> Color {
+        switch status {
+        case .veryActive: return .green
+        case .active: return .blue
+        case .moderate: return .yellow
+        case .inactive: return .orange
+        case .dormant: return .red
+        }
+    }
     
     private func shareProfile() {
-        // TODO: Implement sharing in a later step
+        // TODO: Implement sharing
+    }
+}
+
+// MARK: - Color Extension
+
+extension Color {
+    init?(hex: String) {
+        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+        
+        var rgb: UInt64 = 0
+        guard Scanner(string: hexSanitized).scanHexInt64(&rgb) else { return nil }
+        
+        let r = Double((rgb & 0xFF0000) >> 16) / 255.0
+        let g = Double((rgb & 0x00FF00) >> 8) / 255.0
+        let b = Double(rgb & 0x0000FF) / 255.0
+        
+        self.init(red: r, green: g, blue: b)
     }
 }
 

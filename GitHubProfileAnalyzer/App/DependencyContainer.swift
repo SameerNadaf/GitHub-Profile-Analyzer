@@ -103,6 +103,11 @@ final class DependencyContainer: ObservableObject, DependencyContainerProtocol {
         registerLazySingleton(GitHubAPIClientProtocol.self) {
             GitHubAPIClient()
         }
+        
+        // Use Cases
+        register(FetchProfileUseCaseProtocol.self) {
+            FetchProfileUseCase()
+        }
     }
     
     // MARK: - Testing Support
