@@ -98,6 +98,11 @@ final class DependencyContainer: ObservableObject, DependencyContainerProtocol {
         registerLazySingleton(NetworkClientProtocol.self) {
             NetworkClient()
         }
+        
+        // GitHub API Client
+        registerLazySingleton(GitHubAPIClientProtocol.self) {
+            GitHubAPIClient()
+        }
     }
     
     // MARK: - Testing Support
