@@ -14,7 +14,7 @@ import SwiftUI
 enum Route: Hashable {
     case search
     case profile(username: String)
-    case repositoryList(username: String)
+    case repositoryList(username: String, totalCount: Int?)
     case comparisonInput
     case comparison(usernames: [String])
     
@@ -120,9 +120,9 @@ final class AppRouter: ObservableObject {
         case .profile(let username):
             ProfileScreen(username: username)
             
-        case .repositoryList(let username):
+        case .repositoryList(let username, let totalCount):
             // RepositoryListScreen will fetch its own data
-            RepositoryListScreen(repositories: [], username: username)
+            RepositoryListScreen(repositories: [], username: username, totalCount: totalCount)
             
         case .comparisonInput:
             ComparisonInputScreen()

@@ -205,7 +205,7 @@ struct ProfileScreen: View {
                 Spacer()
                 
                 Button(action: {
-                    router.navigate(to: .repositoryList(username: username))
+                    router.navigate(to: .repositoryList(username: username, totalCount: data.repositories.count))
                 }) {
                     HStack(spacing: 4) {
                         Text("See All")

@@ -58,6 +58,7 @@ struct RepositoryListScreen: View {
     
     let repositories: [Repository]
     let username: String
+    var totalCount: Int? = nil
     
     @State private var loadedRepositories: [Repository]?
     @State private var isLoading = false
@@ -216,7 +217,15 @@ struct RepositoryListScreen: View {
             
             // Active filters
             HStack {
-                Text("\(filteredAndSortedRepos.count) repositories")
+                let countText: String = {
+                    if filterOption == .all && searchText.isEmpty && sortOption == .updated, let total = totalCount {
+                        return "\(total) repositories"
+                    } else {
+                        return "\(filteredAndSortedRepos.count) repositories"
+                    }
+                }()
+                
+                Text(countText)
                     .font(.caption)
                     .foregroundColor(.secondary)
                 
@@ -401,7 +410,8 @@ struct RepositoryListScreen: View {
     NavigationStack {
         RepositoryListScreen(
             repositories: [],
-            username: "SameerNadaf"
+            username: "SameerNadaf",
+            totalCount: 150
         )
     }
 }
