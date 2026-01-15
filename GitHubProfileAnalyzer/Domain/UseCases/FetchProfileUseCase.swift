@@ -58,12 +58,22 @@ final class FetchProfileUseCase: FetchProfileUseCaseProtocol, @unchecked Sendabl
             // Determine activity status from events
             let activityStatus = determineActivityStatus(from: events)
             
+            // Compute analysis with health score
+            let analysisResult = ProfileHealthAnalyzer.analyze(
+                user: user,
+                repositories: repositories,
+                activityStatus: activityStatus,
+                languageStats: languageStats,
+                events: events
+            )
+            
             return ProfileData(
                 user: user,
                 repositories: repositories,
                 languageStats: languageStats,
                 activityStatus: activityStatus,
-                contributionSummary: nil, // Will be populated in analysis step
+                contributionSummary: nil,
+                analysisResult: analysisResult,
                 fetchedAt: Date()
             )
             

@@ -30,6 +30,9 @@ struct ProfileData: Equatable, Sendable {
     /// Contribution summary (optional, requires commit data)
     let contributionSummary: ContributionSummary?
     
+    /// Analysis results with health score
+    let analysisResult: AnalysisResult?
+    
     /// Timestamp when this data was fetched
     let fetchedAt: Date
     

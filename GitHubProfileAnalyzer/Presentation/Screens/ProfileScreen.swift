@@ -98,6 +98,12 @@ struct ProfileScreen: View {
         VStack(spacing: 24) {
             profileHeader(data.user)
             statsBar(data)
+            
+            // Health Score Card
+            if let analysis = data.analysisResult {
+                HealthScoreCard(healthScore: analysis.healthScore)
+            }
+            
             activityStatusCard(data.activityStatus)
             repositorySummary(data)
             languageBreakdown(data.languageStats)
