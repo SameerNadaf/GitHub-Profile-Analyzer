@@ -53,7 +53,7 @@ struct HealthScoreCard: View {
                         categoryRow(category)
                     }
                 }
-                .transition(.opacity.combined(with: .move(edge: .top)))
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
         }
         .padding()
