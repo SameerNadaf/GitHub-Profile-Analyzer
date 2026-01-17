@@ -51,9 +51,8 @@ struct SearchScreen: View {
                             .foregroundColor(.secondary)
                     }
                     .padding()
-                    .background(Color(.systemBackground))
+                    .background(Color(.secondarySystemGroupedBackground))
                     .cornerRadius(12)
-                    .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
                 }
                 .foregroundColor(.primary)
                 
@@ -63,14 +62,7 @@ struct SearchScreen: View {
             .padding(.top, 40)
             .padding(.bottom, 40)
         }
-        .background(
-            LinearGradient(
-                colors: [Color(.systemBackground), Color(.systemGray6)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
-        )
+        .background(Color(.systemGroupedBackground).ignoresSafeArea())
         .navigationTitle("")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -85,11 +77,10 @@ struct SearchScreen: View {
     // MARK: - View Components
     
     private var headerSection: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "person.crop.circle.badge.checkmark")
-                .font(.system(size: 80))
-                .foregroundStyle(.blue.gradient)
-                .shadow(color: .blue.opacity(0.3), radius: 10, y: 5)
+        VStack(spacing: 12) {
+            Image(systemName: "person.2.circle")
+                .font(.system(size: 64))
+                .foregroundStyle(.blue)
             
             Text("GitHub Profile Analyzer")
                 .font(.system(size: 28, weight: .bold, design: .rounded))
@@ -126,9 +117,8 @@ struct SearchScreen: View {
                 }
             }
             .padding()
-            .background(Color(.systemBackground))
+            .background(Color(.secondarySystemGroupedBackground))
             .cornerRadius(12)
-            .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
             
             // Validation feedback
             if !searchText.isEmpty {
@@ -199,7 +189,7 @@ struct SearchScreen: View {
                         }
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
-                        .background(Color(.systemGray5))
+                        .background(Color(.secondarySystemGroupedBackground))
                         .cornerRadius(20)
                         .foregroundColor(.primary)
                     }
@@ -235,9 +225,8 @@ struct SearchScreen: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 16)
-        .background(Color(.systemBackground))
+        .background(Color(.secondarySystemGroupedBackground))
         .cornerRadius(12)
-        .shadow(color: .black.opacity(0.03), radius: 4, y: 2)
     }
     
     // MARK: - Actions
