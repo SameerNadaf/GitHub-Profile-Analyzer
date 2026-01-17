@@ -37,8 +37,14 @@ struct SearchScreen: View {
                 // Compare Profiles Entry
                 Button(action: { router.navigate(to: .comparisonInput) }) {
                     HStack {
-                        Image(systemName: "arrow.left.arrow.right")
-                            .font(.title2)
+                        // VS Badge
+                        Text("VS")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(.white)
+                            .frame(width: 36, height: 36)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                        
                         VStack(alignment: .leading) {
                             Text("Compare Profiles")
                                 .font(.headline)
