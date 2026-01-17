@@ -33,8 +33,6 @@ struct ComparisonScreen: View {
             }
             .padding()
         }
-        .navigationTitle("Comparison")
-        .navigationBarTitleDisplayMode(.inline)
         .task {
             await compareProfiles()
         }

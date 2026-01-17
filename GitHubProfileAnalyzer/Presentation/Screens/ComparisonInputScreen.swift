@@ -35,19 +35,39 @@ struct ComparisonInputScreen: View {
                 .padding(.horizontal)
             
             VStack(spacing: 16) {
-                TextField("First Username", text: $username1)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .autocapitalization(.none)
+                // First username field with card styling
+                HStack {
+                    Image(systemName: "person.fill")
+                        .foregroundColor(.secondary)
+                    TextField("First Username", text: $username1)
+                        .autocapitalization(.none)
+                        .autocorrectionDisabled()
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
                 
+                // VS badge
                 Text("VS")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(.white)
+                    .frame(width: 40, height: 40)
+                    .background(Color.blue)
+                    .clipShape(Circle())
                 
-                TextField("Second Username", text: $username2)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .autocapitalization(.none)
+                // Second username field with card styling
+                HStack {
+                    Image(systemName: "person.fill")
+                        .foregroundColor(.secondary)
+                    TextField("Second Username", text: $username2)
+                        .autocapitalization(.none)
+                        .autocorrectionDisabled()
+                }
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
             }
-            .padding()
+            .padding(.horizontal)
             
             Button(action: startComparison) {
                 HStack {
@@ -57,8 +77,8 @@ struct ComparisonInputScreen: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(isValid ? Color.blue : Color.gray.opacity(0.3))
-                .foregroundColor(.white)
+                .background(isValid ? Color.blue : Color(.systemGray4))
+                .foregroundColor(isValid ? .white : .secondary)
                 .cornerRadius(12)
             }
             .disabled(!isValid)
