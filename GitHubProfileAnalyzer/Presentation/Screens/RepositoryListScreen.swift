@@ -103,7 +103,7 @@ struct RepositoryListScreen: View {
             if isLoading {
                 ProgressView("Loading repositories...")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(.systemGray6))
+                    .background(Color(.systemGroupedBackground))
             } else if filteredAndSortedRepos.isEmpty {
                 emptyState
             } else {
@@ -212,7 +212,7 @@ struct RepositoryListScreen: View {
                 }
             }
             .padding(10)
-            .background(Color(.systemGray6))
+            .background(Color(.systemGroupedBackground))
             .cornerRadius(10)
             
             // Active filters
@@ -295,7 +295,7 @@ struct RepositoryListScreen: View {
             }
             .padding()
         }
-        .background(Color(.systemGray6))
+        .background(Color(.systemGroupedBackground))
     }
     
     // MARK: - Empty State
@@ -329,7 +329,7 @@ struct RepositoryListScreen: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
-        .background(Color(.systemGray6))
+        .background(Color(.systemGroupedBackground))
     }
     
     // MARK: - Sort Sheet
