@@ -25,7 +25,7 @@ struct SearchScreen: View {
     // MARK: - Body
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack(spacing: 32) {
                 headerSection
                 searchSection
@@ -179,22 +179,26 @@ struct SearchScreen: View {
                 .foregroundColor(.blue)
             }
             
-            FlowLayout(spacing: 8) {
-                ForEach(recentSearches, id: \.self) { username in
-                    Button(action: { searchUsername(username) }) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "clock.arrow.circlepath")
-                                .font(.caption)
-                            Text(username)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(recentSearches, id: \.self) { username in
+                        Button(action: { searchUsername(username) }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "clock.arrow.circlepath")
+                                    .font(.caption)
+                                Text(username)
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(Color(.secondarySystemGroupedBackground))
+                            .cornerRadius(20)
+                            .foregroundColor(.primary)
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(Color(.secondarySystemGroupedBackground))
-                        .cornerRadius(20)
-                        .foregroundColor(.primary)
                     }
                 }
+                .padding(.horizontal, 24)
             }
+            .padding(.horizontal, -24)
         }
     }
     
