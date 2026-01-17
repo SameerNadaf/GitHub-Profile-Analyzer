@@ -51,7 +51,7 @@ struct SearchScreen: View {
                             .foregroundColor(.secondary)
                     }
                     .padding()
-                    .background(Color(.secondarySystemGroupedBackground))
+                    .background(Color(.systemGray6))
                     .cornerRadius(12)
                 }
                 .foregroundColor(.primary)
@@ -62,7 +62,7 @@ struct SearchScreen: View {
             .padding(.top, 40)
             .padding(.bottom, 40)
         }
-        .background(Color(.systemGroupedBackground).ignoresSafeArea())
+        .background(Color(.systemBackground).ignoresSafeArea())
         .navigationTitle("")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -117,7 +117,7 @@ struct SearchScreen: View {
                 }
             }
             .padding()
-            .background(Color(.secondarySystemGroupedBackground))
+            .background(Color(.systemGray6))
             .cornerRadius(12)
             
             // Validation feedback
@@ -190,7 +190,7 @@ struct SearchScreen: View {
                             }
                             .padding(.horizontal, 12)
                             .padding(.vertical, 8)
-                            .background(Color(.secondarySystemGroupedBackground))
+                            .background(Color(.systemGray6))
                             .cornerRadius(20)
                             .foregroundColor(.primary)
                         }
@@ -229,7 +229,7 @@ struct SearchScreen: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 16)
-        .background(Color(.secondarySystemGroupedBackground))
+        .background(Color(.systemGray6))
         .cornerRadius(12)
     }
     

@@ -212,7 +212,7 @@ struct RepositoryListScreen: View {
                 }
             }
             .padding(10)
-            .background(Color(.systemGroupedBackground))
+            .background(Color(.systemGray6))
             .cornerRadius(10)
             
             // Active filters
