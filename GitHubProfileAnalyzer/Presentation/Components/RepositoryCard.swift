@@ -83,13 +83,19 @@ struct RepositoryCard: View {
                             .foregroundColor(.secondary)
                     }
                     
-                    Label("\(repository.starCount)", systemImage: "star")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    // Only show stars if > 0
+                    if repository.starCount > 0 {
+                        Label("\(repository.starCount)", systemImage: "star")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                     
-                    Label("\(repository.forkCount)", systemImage: "tuningfork")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    // Only show forks if > 0
+                    if repository.forkCount > 0 {
+                        Label("\(repository.forkCount)", systemImage: "tuningfork")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                     
                     Spacer()
                     
@@ -131,11 +137,11 @@ struct RepositoryCard: View {
         Text(repository.activityStatus.rawValue)
             .font(.caption2)
             .fontWeight(.medium)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(colorForActivityStatus(repository.activityStatus).opacity(0.15))
+            // .padding(.horizontal, 8)
+            // .padding(.vertical, 4)
+            // .background(colorForActivityStatus(repository.activityStatus).opacity(0.15))
             .foregroundColor(colorForActivityStatus(repository.activityStatus))
-            .cornerRadius(8)
+            // .cornerRadius(8)
     }
     
     // MARK: - Helper Methods
@@ -155,6 +161,7 @@ struct RepositoryCard: View {
         case "c#", "csharp": return Color(red: 0.14, green: 0.57, blue: 0.13)
         case "html": return Color(red: 0.89, green: 0.31, blue: 0.15)
         case "css": return Color(red: 0.34, green: 0.24, blue: 0.49)
+        case "dart": return Color(red: 0.25, green: 0.77, blue: 0.85)
         default: return .gray
         }
     }
