@@ -12,29 +12,44 @@ struct ComparisonScreen: View {
     
     // MARK: - Properties
     
-    let usernames: [String]
+    @StateObject private var viewModel: ComparisonViewModel
     
-    @State private var result: ComparisonResult?
-    @State private var isLoading = true
-    @State private var error: String?
+    // MARK: - Initialization
+    
+    init(usernames: [String]) {
+        _viewModel = StateObject(wrappedValue: ComparisonViewModel(usernames: usernames))
+    }
     
     // MARK: - Body
     
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                if isLoading {
+                switch viewModel.state {
+                case .idle, .loading:
                     ComparisonSkeleton()
-                } else if let error = error {
-                    errorView(error)
-                } else if let result = result {
+                    
+                case .loaded(let result):
                     comparisonContent(result)
+                    
+                case .error(let message):
+                    errorView(message)
                 }
             }
             .padding()
         }
         .task {
-            await compareProfiles()
+            await viewModel.compareProfiles()
+        }
+        .alert("common_error", isPresented: Binding(
+            get: { viewModel.error != nil },
+            set: { if !$0 { viewModel.error = nil } }
+        )) {
+            Button("common_ok", role: .cancel) { }
+        } message: {
+            if let error = viewModel.error {
+                Text(error)
+            }
         }
     }
     
@@ -46,7 +61,7 @@ struct ComparisonScreen: View {
             HStack(alignment: .top) {
                 userHeader(user: result.profile1.user, isLeft: true)
                 
-                Text("VS")
+                Text("comparison_vs")
                     .font(.headline)
                     .foregroundColor(.secondary)
                     .padding(.top, 40)
@@ -58,64 +73,65 @@ struct ComparisonScreen: View {
             
             // Health Scores
             VStack(spacing: 8) {
-                Text("Health Score")
+                Text("comparison_health_score")
                     .font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 
                 ComparisonMetricRow(
-                    title: "Score",
+                    title: "comparison_score",
                     value1: "\(Int(result.profile1.analysisResult?.healthScore.overall ?? 0))",
                     value2: "\(Int(result.profile2.analysisResult?.healthScore.overall ?? 0))",
-                    winner: scoreWinner(result)
+                    winner: viewModel.winner(for: .score)
                 )
             }
             
             // User Stats
             VStack(spacing: 8) {
-                Text("Community")
+                Text("comparison_community")
                     .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top, 8)
                 
                 ComparisonMetricRow(
-                    title: "Followers",
+                    title: "profile_stats_followers",
                     value1: "\(result.profile1.user.followerCount)",
                     value2: "\(result.profile2.user.followerCount)",
-                    winner: winner(u1: result.profile1.user.username, u2: result.profile2.user.username, actual: result.followersWinner)
+                    winner: viewModel.winner(for: .followers)
                 )
                 
                 ComparisonMetricRow(
-                    title: "Following",
+                    title: "profile_stats_following",
                     value1: "\(result.profile1.user.followingCount)",
                     value2: "\(result.profile2.user.followingCount)",
-                    winner: nil // Usually less is better? or neutral
+                    winner: nil
                 )
             }
             
             VStack(spacing: 8) {
-                Text("Repositories")
+                Text("comparison_repositories")
                     .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top, 8)
                 
                 ComparisonMetricRow(
-                    title: "Public Repos",
+                    title: "comparison_metric_public_repos",
                     value1: "\(result.profile1.user.publicRepoCount)",
                     value2: "\(result.profile2.user.publicRepoCount)",
-                    winner: winner(u1: result.profile1.user.username, u2: result.profile2.user.username, actual: result.reposWinner)
+                    winner: viewModel.winner(for: .repos)
                 )
                 
                 ComparisonMetricRow(
-                    title: "Total Stars",
+                    title: "comparison_metric_total_stars",
                     value1: "\(result.profile1.totalStars)",
                     value2: "\(result.profile2.totalStars)",
-                    winner: winner(u1: result.profile1.user.username, u2: result.profile2.user.username, actual: result.starsWinner)
+                    winner: viewModel.winner(for: .stars)
                 )
                 
                 ComparisonMetricRow(
-                    title: "Total Forks",
+                    title: "comparison_metric_total_forks",
                     value1: "\(result.profile1.totalForks)",
                     value2: "\(result.profile2.totalForks)",
-                    winner: result.profile1.totalForks > result.profile2.totalForks ? 1 : (result.profile2.totalForks > result.profile1.totalForks ? 2 : nil)
+                    winner: viewModel.winner(for: .forks)
                 )
             }
         }
@@ -148,49 +164,13 @@ struct ComparisonScreen: View {
     
     // MARK: - Helpers
     
-    private func scoreWinner(_ result: ComparisonResult) -> Int? {
-        guard let s1 = result.profile1.analysisResult?.healthScore.overall,
-              let s2 = result.profile2.analysisResult?.healthScore.overall else { return nil }
-        
-        if s1 > s2 { return 1 }
-        if s2 > s1 { return 2 }
-        return nil
-    }
-    
-    private func winner(u1: String, u2: String, actual: String?) -> Int? {
-        guard let actual = actual else { return nil }
-        if actual == u1 { return 1 }
-        if actual == u2 { return 2 }
-        return nil
-    }
-    
     private func errorView(_ message: String) -> some View {
         VStack {
             Image(systemName: "exclamationmark.triangle")
-                .font(.largeTitle)
-                .foregroundColor(.red)
+            .font(.largeTitle)
+            .foregroundColor(.red)
             Text(message)
-                .multilineTextAlignment(.center)
-        }
-    }
-    
-    // MARK: - Logic
-    
-    private func compareProfiles() async {
-        guard usernames.count == 2 else {
-            error = "Invalid number of users"
-            isLoading = false
-            return
-        }
-        
-        let useCase = CompareProfilesUseCase()
-        
-        do {
-            result = try await useCase.execute(username1: usernames[0], username2: usernames[1])
-            isLoading = false
-        } catch {
-            self.error = error.localizedDescription
-            isLoading = false
+            .multilineTextAlignment(.center)
         }
     }
 }
