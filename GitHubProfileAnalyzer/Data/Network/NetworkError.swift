@@ -41,6 +41,12 @@ enum NetworkError: LocalizedError, Equatable {
     /// Unauthorized - requires authentication
     case unauthorized
     
+    /// Forbidden - authenticated but not allowed
+    case forbidden
+    
+    /// Bad Request - invalid request parameters
+    case badRequest
+    
     /// Unknown error
     case unknown(String)
     
@@ -49,31 +55,35 @@ enum NetworkError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .noConnection:
-            return "No internet connection"
+            return String(localized: "error_no_connection")
         case .timeout:
-            return "Request timed out"
+            return String(localized: "error_timeout")
         case .invalidURL(let url):
-            return "Invalid URL: \(url)"
+            return String(format: String(localized: "error_invalid_url"), url)
         case .serverError(let statusCode, let message):
             if let message = message {
-                return "Server error (\(statusCode)): \(message)"
+                return String(format: String(localized: "error_server_error"), statusCode, message)
             }
-            return "Server error: \(statusCode)"
+            return String(format: String(localized: "error_server_error_simple"), statusCode)
         case .decodingError(let detail):
-            return "Failed to process response: \(detail)"
+            return String(format: String(localized: "error_decoding"), detail)
         case .cancelled:
-            return "Request was cancelled"
+            return String(localized: "error_cancelled")
         case .rateLimitExceeded(let resetDate):
             if let date = resetDate {
                 let formatter = RelativeDateTimeFormatter()
                 let relative = formatter.localizedString(for: date, relativeTo: Date())
-                return "Rate limit exceeded. Try again \(relative)"
+                return String(format: String(localized: "error_rate_limit_relative"), relative)
             }
-            return "Rate limit exceeded. Please try again later"
+            return String(localized: "error_rate_limit_generic")
         case .notFound(let resource):
-            return "\(resource) not found"
+            return String(format: String(localized: "error_not_found"), resource)
         case .unauthorized:
-            return "Authentication required"
+            return String(localized: "error_unauthorized")
+        case .forbidden:
+            return String(localized: "error_forbidden")
+        case .badRequest:
+            return String(localized: "error_bad_request")
         case .unknown(let message):
             return message
         }
@@ -131,6 +141,8 @@ enum NetworkError: LocalizedError, Equatable {
         switch statusCode {
         case 200...299:
             return nil // Success
+        case 400:
+            return .badRequest
         case 401:
             return .unauthorized
         case 403:
@@ -141,7 +153,7 @@ enum NetworkError: LocalizedError, Equatable {
                message.lowercased().contains("rate limit") {
                 return .rateLimitExceeded(resetDate: nil)
             }
-            return .serverError(statusCode: statusCode, message: "Forbidden")
+            return .forbidden
         case 404:
             return .notFound(resource: "Resource")
         case 500...599:
