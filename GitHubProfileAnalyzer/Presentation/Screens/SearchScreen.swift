@@ -46,9 +46,9 @@ struct SearchScreen: View {
                             .clipShape(Circle())
                         
                         VStack(alignment: .leading) {
-                            Text("Compare Profiles")
+                            Text("home_compare_title")
                                 .font(.headline)
-                            Text("See who wins in stats")
+                            Text("home_compare_subtitle")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -88,11 +88,11 @@ struct SearchScreen: View {
                 .font(.system(size: 64))
                 .foregroundStyle(.blue)
             
-            Text("GitHub Profile Analyzer")
+            Text("app_name")
                 .font(.system(size: 28, weight: .bold, design: .rounded))
                 .foregroundColor(.primary)
             
-            Text("Discover insights about any GitHub profile")
+            Text("home_subtitle")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -105,7 +105,7 @@ struct SearchScreen: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
                 
-                TextField("Enter GitHub username", text: $searchText)
+                TextField("home_enter_username", text: $searchText)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .submitLabel(.search)
@@ -146,7 +146,7 @@ struct SearchScreen: View {
             Button(action: performSearch) {
                 HStack {
                     Image(systemName: "arrow.right.circle.fill")
-                    Text("Analyze Profile")
+                    Text("home_analyze_button")
                         .fontWeight(.semibold)
                 }
                 .frame(maxWidth: .infinity)
@@ -170,13 +170,13 @@ struct SearchScreen: View {
     private var recentSearchesSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Recent Searches")
+                Text("home_recent_searches")
                     .font(.headline)
                     .foregroundColor(.secondary)
                 
                 Spacer()
                 
-                Button("Clear") {
+                Button("common_clear") {
                     withAnimation {
                         recentSearches.removeAll()
                     }
@@ -210,15 +210,15 @@ struct SearchScreen: View {
     
     private var featuresPreview: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("What You'll Discover")
+            Text("home_features_title")
                 .font(.headline)
                 .foregroundColor(.secondary)
             
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-                featureCard(icon: "chart.pie.fill", title: "Languages", color: .purple)
-                featureCard(icon: "chart.line.uptrend.xyaxis", title: "Activity", color: .green)
-                featureCard(icon: "star.fill", title: "Repo Stats", color: .orange)
-                featureCard(icon: "heart.fill", title: "Health Score", color: .red)
+                featureCard(icon: "chart.pie.fill", title: String(localized: "home_feature_languages"), color: .purple)
+                featureCard(icon: "chart.line.uptrend.xyaxis", title: String(localized: "home_feature_activity"), color: .green)
+                featureCard(icon: "star.fill", title: String(localized: "home_feature_repo_stats"), color: .orange)
+                featureCard(icon: "heart.fill", title: String(localized: "home_feature_health_score"), color: .red)
             }
         }
     }
