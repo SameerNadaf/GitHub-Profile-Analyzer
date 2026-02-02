@@ -66,8 +66,8 @@ extension EmptyStateView {
     static func noRepositories(action: (() -> Void)? = nil) -> EmptyStateView {
         EmptyStateView(
             icon: "folder.badge.questionmark",
-            title: "No Repositories",
-            message: "This user doesn't have any public repositories yet.",
+            title: String(localized: "empty_no_repos_title"),
+            message: String(localized: "empty_no_repos_message"),
             actionTitle: nil,
             action: action
         )
@@ -77,9 +77,9 @@ extension EmptyStateView {
     static func noSearchResults(query: String, action: @escaping () -> Void) -> EmptyStateView {
         EmptyStateView(
             icon: "magnifyingglass",
-            title: "No Results",
-            message: "No repositories match '\(query)'",
-            actionTitle: "Clear Search",
+            title: String(localized: "empty_no_results_title"),
+            message: String(format: String(localized: "empty_no_results_message_format"), query),
+            actionTitle: String(localized: "empty_clear_search"),
             action: action
         )
     }
@@ -88,9 +88,9 @@ extension EmptyStateView {
     static func networkError(action: @escaping () -> Void) -> EmptyStateView {
         EmptyStateView(
             icon: "wifi.slash",
-            title: "Connection Error",
-            message: "Please check your internet connection and try again.",
-            actionTitle: "Retry",
+            title: String(localized: "empty_connection_error_title"),
+            message: String(localized: "empty_connection_error_message"),
+            actionTitle: String(localized: "common_try_again"),
             action: action
         )
     }
@@ -99,8 +99,8 @@ extension EmptyStateView {
     static func userNotFound(username: String) -> EmptyStateView {
         EmptyStateView(
             icon: "person.fill.questionmark",
-            title: "User Not Found",
-            message: "No GitHub user with the username '\(username)' exists.",
+            title: String(localized: "empty_user_not_found_title"),
+            message: String(format: String(localized: "empty_user_not_found_message_format"), username),
             actionTitle: nil,
             action: nil
         )
@@ -110,9 +110,9 @@ extension EmptyStateView {
     static func rateLimited(action: @escaping () -> Void) -> EmptyStateView {
         EmptyStateView(
             icon: "clock.badge.exclamationmark",
-            title: "Rate Limited",
-            message: "GitHub API rate limit exceeded. Please try again later.",
-            actionTitle: "Retry",
+            title: String(localized: "empty_rate_limited_title"),
+            message: String(localized: "empty_rate_limited_message"),
+            actionTitle: String(localized: "common_try_again"),
             action: action
         )
     }
