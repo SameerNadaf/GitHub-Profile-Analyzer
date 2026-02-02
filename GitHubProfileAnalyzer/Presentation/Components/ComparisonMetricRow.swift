@@ -29,7 +29,7 @@ struct ComparisonMetricRow: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
             
             // Title
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .frame(width: 100, alignment: .center)
