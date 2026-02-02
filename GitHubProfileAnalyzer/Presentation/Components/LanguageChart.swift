@@ -25,7 +25,7 @@ struct LanguageChart: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Language Distribution")
+            Text("language_chart_title")
                 .font(.headline)
             
             if languages.isEmpty {
@@ -53,7 +53,7 @@ struct LanguageChart: View {
     private var chartView: some View {
         Chart(languages.prefix(6), id: \.name) { lang in
             SectorMark(
-                angle: .value("Percentage", lang.percentage),
+                angle: .value(String(localized: "chart_metric_label"), lang.percentage),
                 innerRadius: .ratio(0.6),
                 angularInset: 1
             )
@@ -85,7 +85,7 @@ struct LanguageChart: View {
             }
             
             if languages.count > 5 {
-                Text("+ \(languages.count - 5) more")
+                Text(String(format: String(localized: "language_chart_more_format"), languages.count - 5))
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
@@ -101,7 +101,7 @@ struct LanguageChart: View {
                 Image(systemName: "chart.pie")
                     .font(.title)
                     .foregroundColor(.secondary)
-                Text("No language data")
+                Text("language_chart_no_data")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
