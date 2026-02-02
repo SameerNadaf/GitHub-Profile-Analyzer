@@ -101,7 +101,7 @@ struct RepositoryListScreen: View {
             
             // Repository list
             if isLoading {
-                ProgressView("Loading repositories...")
+                ProgressView("repo_loading_message")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(.systemGroupedBackground))
             } else if filteredAndSortedRepos.isEmpty {
@@ -110,16 +110,16 @@ struct RepositoryListScreen: View {
                 repositoryList
             }
         }
-        .navigationTitle("Repositories")
+        .navigationTitle(Text("repo_list_title"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     Button(action: { showSortSheet = true }) {
-                        Label("Sort", systemImage: "arrow.up.arrow.down")
+                        Label("repo_sort_button", systemImage: "arrow.up.arrow.down")
                     }
                     Button(action: { showFilterSheet = true }) {
-                        Label("Filter", systemImage: "line.3.horizontal.decrease")
+                        Label("repo_filter_button", systemImage: "line.3.horizontal.decrease")
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
@@ -201,7 +201,7 @@ struct RepositoryListScreen: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
                 
-                TextField("Search repositories...", text: $searchText)
+                TextField("repo_search_placeholder", text: $searchText)
                     .textInputAutocapitalization(.never)
                 
                 if !searchText.isEmpty {
@@ -219,9 +219,9 @@ struct RepositoryListScreen: View {
             HStack {
                 let countText: String = {
                     if filterOption == .all && searchText.isEmpty && sortOption == .updated, let total = totalCount {
-                        return "\(total) repositories"
+                        return "\(total) \(String(localized: "repo_count_suffix"))"
                     } else {
-                        return "\(filteredAndSortedRepos.count) repositories"
+                        return "\(filteredAndSortedRepos.count) \(String(localized: "repo_count_suffix"))"
                     }
                 }()
                 
@@ -308,19 +308,19 @@ struct RepositoryListScreen: View {
                 .font(.system(size: 60))
                 .foregroundColor(.secondary)
             
-            Text("No repositories found")
+            Text("repo_empty_title")
                 .font(.headline)
             
             if !searchText.isEmpty {
-                Text("Try a different search term")
+                Text("repo_empty_search_message")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             } else if filterOption != .all {
-                Text("Try changing the filter")
+                Text("repo_empty_filter_message")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 
-                Button("Show All") {
+                Button("common_show_all") {
                     filterOption = .all
                 }
                 .buttonStyle(.borderedProminent)
@@ -354,11 +354,11 @@ struct RepositoryListScreen: View {
                     }
                 }
             }
-            .navigationTitle("Sort By")
+            .navigationTitle(Text("repo_sort_title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { showSortSheet = false }
+                    Button("common_done") { showSortSheet = false }
                 }
             }
         }
@@ -392,11 +392,11 @@ struct RepositoryListScreen: View {
                     }
                 }
             }
-            .navigationTitle("Filter")
+            .navigationTitle(Text("repo_filter_button"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { showFilterSheet = false }
+                    Button("common_done") { showFilterSheet = false }
                 }
             }
         }
