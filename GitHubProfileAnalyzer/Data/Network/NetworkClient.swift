@@ -28,6 +28,8 @@ final class NetworkClient: NetworkClientProtocol, @unchecked Sendable {
     
     private let session: URLSession
     private let decoder: JSONDecoder
+    private let maxRetries: Int
+    private let initialRetryDelay: TimeInterval
     
     /// Rate limit information from last response
     @MainActor
@@ -35,9 +37,16 @@ final class NetworkClient: NetworkClientProtocol, @unchecked Sendable {
     
     // MARK: - Initialization
     
-    init(session: URLSession = .shared, decoder: JSONDecoder? = nil) {
+    init(
+        session: URLSession = .shared,
+        decoder: JSONDecoder? = nil,
+        maxRetries: Int = 3,
+        initialRetryDelay: TimeInterval = 1.0
+    ) {
         self.session = session
         self.decoder = decoder ?? Self.defaultDecoder()
+        self.maxRetries = maxRetries
+        self.initialRetryDelay = initialRetryDelay
     }
     
     // MARK: - Public Methods
@@ -53,8 +62,37 @@ final class NetworkClient: NetworkClientProtocol, @unchecked Sendable {
         }
     }
     
-    /// Execute a request and return raw data
+    /// Execute a request and return raw data with retry logic
     func requestData(_ endpoint: APIEndpoint) async throws -> Data {
+        var currentRetry = 0
+        var currentDelay = initialRetryDelay
+        
+        while true {
+            do {
+                return try await performRequest(endpoint)
+            } catch {
+                guard currentRetry < maxRetries, shouldRetry(error) else {
+                    throw error
+                }
+                
+                // Wait before retrying
+                try await Task.sleep(nanoseconds: UInt64(currentDelay * 1_000_000_000))
+                
+                currentRetry += 1
+                // Exponential backoff with jitter
+                let jitter = Double.random(in: 0...0.5)
+                currentDelay = (currentDelay * 2) + jitter
+                
+                #if DEBUG
+                print("🔄 Retrying request (\(currentRetry)/\(maxRetries))...")
+                #endif
+            }
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    private func performRequest(_ endpoint: APIEndpoint) async throws -> Data {
         let request: URLRequest
         do {
             request = try endpoint.asURLRequest()
@@ -101,8 +139,34 @@ final class NetworkClient: NetworkClientProtocol, @unchecked Sendable {
         return data
     }
     
-    // MARK: - Private Methods
-    
+    private func shouldRetry(_ error: Error) -> Bool {
+        if let networkError = error as? NetworkError {
+            switch networkError {
+            case .serverError(let code, _):
+                // Retry typical transient server errors
+                return [500, 502, 503, 504].contains(code)
+            case .noConnection, .timeout:
+                return true
+            case .decodingError, .badRequest, .unauthorized, .forbidden, .notFound, .invalidURL, .cancelled, .rateLimitExceeded:
+                return false
+            case .unknown:
+                return true
+            }
+        }
+        
+        // Retry URL errors related to connectivity
+        if let urlError = error as? URLError {
+            switch urlError.code {
+            case .timedOut, .cannotConnectToHost, .networkConnectionLost, .notConnectedToInternet, .dnsLookupFailed:
+                return true
+            default:
+                return false
+            }
+        }
+        
+        return false
+    }
+
     private static func defaultDecoder() -> JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
