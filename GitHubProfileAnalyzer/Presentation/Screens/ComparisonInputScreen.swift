@@ -23,12 +23,12 @@ struct ComparisonInputScreen: View {
     var body: some View {
         VStack(spacing: 24) {
             
-            Text("Compare Profiles")
+            Text("comparison_title")
                 .font(.largeTitle)
                 .bold()
                 .padding(.top, 40)
             
-            Text("See who has better stats, health scores, and more.")
+            Text("comparison_subtitle")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -39,7 +39,7 @@ struct ComparisonInputScreen: View {
                 HStack {
                     Image(systemName: "person.fill")
                         .foregroundColor(.secondary)
-                    TextField("First Username", text: $username1)
+                    TextField("comparison_input_placeholder_1", text: $username1)
                         .autocapitalization(.none)
                         .autocorrectionDisabled()
                 }
@@ -48,7 +48,7 @@ struct ComparisonInputScreen: View {
                 .cornerRadius(12)
                 
                 // VS badge
-                Text("VS")
+                Text("comparison_vs")
                     .font(.system(size: 14, weight: .bold))
                     .foregroundColor(.white)
                     .frame(width: 40, height: 40)
@@ -59,7 +59,7 @@ struct ComparisonInputScreen: View {
                 HStack {
                     Image(systemName: "person.fill")
                         .foregroundColor(.secondary)
-                    TextField("Second Username", text: $username2)
+                    TextField("comparison_input_placeholder_2", text: $username2)
                         .autocapitalization(.none)
                         .autocorrectionDisabled()
                 }
@@ -71,7 +71,7 @@ struct ComparisonInputScreen: View {
             
             Button(action: startComparison) {
                 HStack {
-                    Text("Compare Now")
+                    Text("comparison_start_button")
                         .fontWeight(.semibold)
                     Image(systemName: "arrow.right")
                 }
@@ -88,7 +88,7 @@ struct ComparisonInputScreen: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .navigationTitle("Comparison")
+        .navigationTitle("comparison_nav_title")
         .navigationBarTitleDisplayMode(.inline)
     }
     
