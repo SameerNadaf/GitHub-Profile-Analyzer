@@ -150,13 +150,13 @@ struct ProfileScreen: View {
     
     private func statsBar(_ data: ProfileData) -> some View {
         HStack(spacing: 0) {
-            statItem(title: "Repos", value: "\(data.user.publicRepoCount)")
+            statItem(title: "profile_stats_repos", value: "\(data.user.publicRepoCount)")
             Divider().frame(height: 40)
-            statItem(title: "Followers", value: formatNumber(data.user.followerCount))
+            statItem(title: "profile_stats_followers", value: formatNumber(data.user.followerCount))
             Divider().frame(height: 40)
-            statItem(title: "Following", value: formatNumber(data.user.followingCount))
+            statItem(title: "profile_stats_following", value: formatNumber(data.user.followingCount))
             Divider().frame(height: 40)
-            statItem(title: "Stars", value: formatNumber(data.totalStars))
+            statItem(title: "profile_stats_stars", value: formatNumber(data.totalStars))
         }
         .padding()
         .background(Color(.systemGray6))
@@ -167,7 +167,7 @@ struct ProfileScreen: View {
         VStack(spacing: 4) {
             Text(value)
                 .font(.title3.bold())
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
@@ -181,7 +181,7 @@ struct ProfileScreen: View {
                 .foregroundColor(colorForStatus(status))
             
             VStack(alignment: .leading, spacing: 2) {
-                Text("Activity Status")
+                Text("profile_activity_status")
                     .font(.caption)
                     .foregroundColor(.secondary)
                 Text(status.rawValue)
@@ -199,7 +199,7 @@ struct ProfileScreen: View {
     private func repositorySummary(_ data: ProfileData) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Repository Summary")
+                Text("profile_repo_summary")
                     .font(.headline)
                 
                 Spacer()
@@ -208,7 +208,7 @@ struct ProfileScreen: View {
                     router.navigate(to: .repositoryList(username: username, totalCount: data.repositories.count))
                 }) {
                     HStack(spacing: 4) {
-                        Text("See All")
+                        Text("common_see_all")
                         Image(systemName: "chevron.right")
                     }
                     .font(.subheadline)
@@ -217,12 +217,12 @@ struct ProfileScreen: View {
             }
             
             VStack(spacing: 8) {
-                summaryRow(label: "Total Repositories", value: "\(data.repositories.count)")
-                summaryRow(label: "Original (non-fork)", value: "\(data.originalRepos.count)")
-                summaryRow(label: "Active (6 months)", value: "\(data.activeRepos.count)")
-                summaryRow(label: "Avg Maintenance", value: "\(Int(data.averageMaintenanceScore))%")
+                summaryRow(label: "profile_summary_total", value: "\(data.repositories.count)")
+                summaryRow(label: "profile_summary_original", value: "\(data.originalRepos.count)")
+                summaryRow(label: "profile_summary_active", value: "\(data.activeRepos.count)")
+                summaryRow(label: "profile_summary_maintenance", value: "\(Int(data.averageMaintenanceScore))%")
                 if data.starToRepoRatio > 0 {
-                    summaryRow(label: "Stars per Repo", value: String(format: "%.1f", data.starToRepoRatio))
+                    summaryRow(label: "profile_summary_stars_per_repo", value: String(format: "%.1f", data.starToRepoRatio))
                 }
             }
             .padding()
@@ -233,7 +233,7 @@ struct ProfileScreen: View {
     
     private func summaryRow(label: String, value: String) -> some View {
         HStack {
-            Text(label)
+            Text(LocalizedStringKey(label))
                 .foregroundColor(.secondary)
             Spacer()
             Text(value)
@@ -245,16 +245,16 @@ struct ProfileScreen: View {
     private func languageBreakdown(_ stats: LanguageStatistics) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Languages")
+                Text("profile_languages")
                     .font(.headline)
                 Spacer()
-                Text("Diversity: \(stats.diversityScore)%")
+                Text("profile_diversity")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
             
             if stats.languages.isEmpty {
-                Text("No language data available")
+                Text("profile_no_languages")
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             } else {
@@ -290,7 +290,7 @@ struct ProfileScreen: View {
                 .foregroundColor(.orange)
             
             VStack(spacing: 8) {
-                Text(error.errorDescription ?? "An error occurred")
+                Text(LocalizedStringKey(error.errorDescription ?? "common_error"))
                     .font(.headline)
                     .multilineTextAlignment(.center)
                 
@@ -303,7 +303,7 @@ struct ProfileScreen: View {
             }
             
             Button(action: { viewModel.refresh() }) {
-                Label("Try Again", systemImage: "arrow.clockwise")
+                Label("common_try_again", systemImage: "arrow.clockwise")
                     .padding(.horizontal, 24)
                     .padding(.vertical, 12)
                     .background(Color.blue)
