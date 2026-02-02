@@ -7,24 +7,59 @@
 
 import Foundation
 
+// MARK: - Health Score Configuration
+
+struct HealthScoreConfiguration: Sendable {
+    let activityWeight: Double
+    let repositoryWeight: Double
+    let communityWeight: Double
+    let profileWeight: Double
+    let diversityWeight: Double
+    
+    static let standard = HealthScoreConfiguration(
+        activityWeight: 0.30,
+        repositoryWeight: 0.25,
+        communityWeight: 0.20,
+        profileWeight: 0.15,
+        diversityWeight: 0.10
+    )
+}
+
 // MARK: - Profile Health Analyzer
 
 /// Computes the composite Profile Health Score
 /// Formula: Activity (30%) + Repo Quality (25%) + Community (20%) + Profile (15%) + Diversity (10%)
-enum ProfileHealthAnalyzer {
+struct ProfileHealthAnalyzer: Sendable {
     
-    // MARK: - Weights
+    let configuration: HealthScoreConfiguration
     
-    private static let activityWeight: Double = 0.30
-    private static let repositoryWeight: Double = 0.25
-    private static let communityWeight: Double = 0.20
-    private static let profileWeight: Double = 0.15
-    private static let diversityWeight: Double = 0.10
+    init(configuration: HealthScoreConfiguration = .standard) {
+        self.configuration = configuration
+    }
     
-    // MARK: - Public Methods
+    // MARK: - Use Case Integration (Static Convenience)
+    
+    static func analyze(
+        user: GitHubUser,
+        repositories: [Repository],
+        activityStatus: UserActivityStatus,
+        languageStats: LanguageStatistics,
+        events: [UserEvent] = []
+    ) -> AnalysisResult {
+        let analyzer = ProfileHealthAnalyzer()
+        return analyzer.analyze(
+            user: user,
+            repositories: repositories,
+            activityStatus: activityStatus,
+            languageStats: languageStats,
+            events: events
+        )
+    }
+    
+    // MARK: - Instance Methods
     
     /// Analyze profile and compute health score
-    static func analyze(
+    func analyze(
         user: GitHubUser,
         repositories: [Repository],
         activityStatus: UserActivityStatus,
@@ -54,44 +89,44 @@ enum ProfileHealthAnalyzer {
         // Build breakdown
         let breakdown = ScoreBreakdown(
             activity: CategoryScore(
-                name: "Activity",
+                name: String(localized: "health_category_activity"),
                 score: activityScore,
-                weight: activityWeight,
+                weight: configuration.activityWeight,
                 details: activityAnalysis.summary
             ),
             repositoryQuality: CategoryScore(
-                name: "Repository Quality",
+                name: String(localized: "health_category_repo_quality"),
                 score: repoScore,
-                weight: repositoryWeight,
-                details: "Avg maintenance: \(Int(repositoryAnalysis.averageMaintenanceScore))%"
+                weight: configuration.repositoryWeight,
+                details: String(format: String(localized: "health_details_maintenance_format"), Int(repositoryAnalysis.averageMaintenanceScore))
             ),
             community: CategoryScore(
-                name: "Community",
+                name: String(localized: "health_category_community"),
                 score: communityScore,
-                weight: communityWeight,
+                weight: configuration.communityWeight,
                 details: communityAnalysis.summary
             ),
             profileCompleteness: CategoryScore(
-                name: "Profile",
+                name: String(localized: "health_category_profile"),
                 score: profileScore,
-                weight: profileWeight,
-                details: "\(profileScore)% complete"
+                weight: configuration.profileWeight,
+                details: String(format: String(localized: "health_details_complete_format"), profileScore)
             ),
             languageDiversity: CategoryScore(
-                name: "Languages",
+                name: String(localized: "health_category_languages"),
                 score: diversityScore,
-                weight: diversityWeight,
+                weight: configuration.diversityWeight,
                 details: languageAnalysis.diversityLevel
             )
         )
         
         // Compute weighted overall score
         let overall = Int(
-            Double(activityScore) * activityWeight +
-            Double(repoScore) * repositoryWeight +
-            Double(communityScore) * communityWeight +
-            Double(profileScore) * profileWeight +
-            Double(diversityScore) * diversityWeight
+            Double(activityScore) * configuration.activityWeight +
+            Double(repoScore) * configuration.repositoryWeight +
+            Double(communityScore) * configuration.communityWeight +
+            Double(profileScore) * configuration.profileWeight +
+            Double(diversityScore) * configuration.diversityWeight
         )
         
         let healthScore = HealthScore(overall: overall, breakdown: breakdown)
@@ -109,7 +144,7 @@ enum ProfileHealthAnalyzer {
     
     // MARK: - Activity Analysis
     
-    private static func analyzeActivity(
+    private func analyzeActivity(
         status: UserActivityStatus,
         events: [UserEvent],
         repositories: [Repository]
@@ -145,7 +180,7 @@ enum ProfileHealthAnalyzer {
         )
     }
     
-    private static func determineTrend(events: [UserEvent]) -> ActivityTrend {
+    private func determineTrend(events: [UserEvent]) -> ActivityTrend {
         guard events.count >= 5 else {
             return events.isEmpty ? .inactive : .stable
         }
@@ -163,7 +198,7 @@ enum ProfileHealthAnalyzer {
         return .stable
     }
     
-    private static func computeConsistencyScore(events: [UserEvent], repositories: [Repository]) -> Int {
+    private func computeConsistencyScore(events: [UserEvent], repositories: [Repository]) -> Int {
         // Base on activity spread
         let activeRepos = repositories.filter { $0.isActive }.count
         let totalRepos = max(repositories.count, 1)
@@ -177,7 +212,7 @@ enum ProfileHealthAnalyzer {
     
     // MARK: - Repository Analysis
     
-    private static func analyzeRepositories(_ repositories: [Repository]) -> RepositoryAnalysis {
+    private func analyzeRepositories(_ repositories: [Repository]) -> RepositoryAnalysis {
         let originals = repositories.filter { !$0.isFork }
         let active = repositories.filter { $0.isActive }
         let archived = repositories.filter { $0.isArchived }
@@ -219,7 +254,7 @@ enum ProfileHealthAnalyzer {
     
     // MARK: - Community Analysis
     
-    private static func analyzeCommunity(_ user: GitHubUser) -> CommunityAnalysis {
+    private func analyzeCommunity(_ user: GitHubUser) -> CommunityAnalysis {
         let ratio = user.followerRatio
         let level = EngagementLevel.from(followers: user.followerCount, ratio: ratio)
         
@@ -233,7 +268,7 @@ enum ProfileHealthAnalyzer {
     
     // MARK: - Profile Analysis
     
-    private static func analyzeProfileCompleteness(_ user: GitHubUser) -> ProfileCompletenessAnalysis {
+    private func analyzeProfileCompleteness(_ user: GitHubUser) -> ProfileCompletenessAnalysis {
         ProfileCompletenessAnalysis(
             hasName: user.displayName != nil && !user.displayName!.isEmpty,
             hasBio: user.bio != nil && !user.bio!.isEmpty,
@@ -247,7 +282,7 @@ enum ProfileHealthAnalyzer {
     
     // MARK: - Language Analysis
     
-    private static func analyzeLanguageDiversity(
+    private func analyzeLanguageDiversity(
         _ stats: LanguageStatistics,
         repositories: [Repository]
     ) -> LanguageDiversityAnalysis {
@@ -268,7 +303,7 @@ enum ProfileHealthAnalyzer {
     
     // MARK: - Score Computation
     
-    private static func computeActivityScore(_ analysis: ActivityAnalysis) -> Int {
+    private func computeActivityScore(_ analysis: ActivityAnalysis) -> Int {
         var score = 0
         
         // Status contribution (40 points)
@@ -297,7 +332,7 @@ enum ProfileHealthAnalyzer {
         return min(score, 100)
     }
     
-    private static func computeRepositoryScore(_ analysis: RepositoryAnalysis) -> Int {
+    private func computeRepositoryScore(_ analysis: RepositoryAnalysis) -> Int {
         var score = 0
         
         // Has repos (10 points)
@@ -330,7 +365,7 @@ enum ProfileHealthAnalyzer {
         return min(score, 100)
     }
     
-    private static func computeCommunityScore(_ analysis: CommunityAnalysis) -> Int {
+    private func computeCommunityScore(_ analysis: CommunityAnalysis) -> Int {
         var score = 0
         
         // Followers (50 points)
