@@ -44,7 +44,7 @@ struct RepositoryCard: View {
                             }
                             
                             if repository.isArchived {
-                                Text("Archived")
+                                Text("repo_card_archived")
                                     .font(.caption2)
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 2)
@@ -134,7 +134,7 @@ struct RepositoryCard: View {
     // MARK: - Subviews
     
     private var activityBadge: some View {
-        Text(repository.activityStatus.rawValue)
+        Text(repository.activityStatus.localizedTitle)
             .font(.caption2)
             .fontWeight(.medium)
             // .padding(.horizontal, 8)
@@ -178,12 +178,12 @@ struct RepositoryCard: View {
     
     private func formatDaysSince(_ days: Int) -> String {
         switch days {
-        case 0: return "Today"
-        case 1: return "Yesterday"
-        case 2...7: return "\(days) days ago"
-        case 8...30: return "\(days / 7) weeks ago"
-        case 31...365: return "\(days / 30) months ago"
-        default: return "\(days / 365) years ago"
+        case 0: return String(localized: "time_today")
+        case 1: return String(localized: "time_yesterday")
+        case 2...7: return String(format: String(localized: "time_days_ago"), days)
+        case 8...30: return String(format: String(localized: "time_weeks_ago"), days / 7)
+        case 31...365: return String(format: String(localized: "time_months_ago"), days / 30)
+        default: return String(format: String(localized: "time_years_ago"), days / 365)
         }
     }
 }
