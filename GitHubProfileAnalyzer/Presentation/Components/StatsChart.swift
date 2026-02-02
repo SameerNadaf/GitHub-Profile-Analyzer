@@ -34,14 +34,14 @@ struct StatsChart: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                Text("Top Repositories")
+                Text("chart_top_repositories_title")
                     .font(.headline)
                 
                 Spacer()
                 
-                Picker("Metric", selection: $selectedMetric) {
+                Picker("chart_metric_label", selection: $selectedMetric) {
                     ForEach(RepoMetric.allCases, id: \.self) { metric in
-                        Text(metric.rawValue).tag(metric)
+                        Text(metric.localizedTitle).tag(metric)
                     }
                 }
                 .pickerStyle(.segmented)
@@ -93,7 +93,7 @@ struct StatsChart: View {
                 Image(systemName: "chart.bar.xaxis")
                     .font(.title)
                     .foregroundColor(.secondary)
-                Text("No repositories")
+                Text("chart_no_repos_message")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -131,6 +131,16 @@ enum RepoMetric: String, CaseIterable {
     case stars = "Stars"
     case forks = "Forks"
     case maintenance = "Score"
+}
+
+extension RepoMetric {
+    var localizedTitle: LocalizedStringKey {
+        switch self {
+        case .stars: return "chart_metric_stars"
+        case .forks: return "chart_metric_forks"
+        case .maintenance: return "chart_metric_score"
+        }
+    }
 }
 
 // MARK: - Preview
