@@ -123,15 +123,15 @@ enum ProfileError: LocalizedError, Equatable {
     var errorDescription: String? {
         switch self {
         case .userNotFound(let username):
-            return "User '\(username)' not found"
+            return String(format: String(localized: "error_profile_user_not_found"), username)
         case .networkError(let message):
-            return "Network error: \(message)"
+            return String(format: String(localized: "error_profile_network"), message)
         case .rateLimited(let retryAfter):
             if let date = retryAfter {
                 let formatter = RelativeDateTimeFormatter()
-                return "Rate limited. Try again \(formatter.localizedString(for: date, relativeTo: Date()))"
+                return String(format: String(localized: "error_profile_rate_limit"), formatter.localizedString(for: date, relativeTo: Date()))
             }
-            return "Rate limited. Please try again later"
+            return String(localized: "error_profile_rate_limit_generic")
         case .unknown(let message):
             return message
         }
