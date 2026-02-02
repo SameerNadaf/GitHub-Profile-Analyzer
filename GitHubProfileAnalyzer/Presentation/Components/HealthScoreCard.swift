@@ -24,7 +24,7 @@ struct HealthScoreCard: View {
                 scoreCircle
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Profile Health")
+                    Text("health_card_title", comment: "Title for profile health score card")
                         .font(.headline)
                     
                     Text(healthScore.rating)
@@ -33,7 +33,7 @@ struct HealthScoreCard: View {
                     
                     Button(action: { withAnimation { showBreakdown.toggle() } }) {
                         HStack(spacing: 4) {
-                            Text(showBreakdown ? "Hide Details" : "Show Details")
+                            Text(showBreakdown ? "health_card_hide_details" : "health_card_show_details")
                             Image(systemName: showBreakdown ? "chevron.up" : "chevron.down")
                         }
                         .font(.caption)
