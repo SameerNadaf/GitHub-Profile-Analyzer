@@ -149,6 +149,17 @@ enum RepositoryActivityStatus: String, CaseIterable {
         case .inactive, .unknown: return "gray"
         }
     }
+    
+    var localizedTitle: String {
+        switch self {
+        case .active: return String(localized: "status_active")
+        case .recent: return String(localized: "status_recent")
+        case .moderate: return String(localized: "status_moderate")
+        case .stale: return String(localized: "status_stale")
+        case .inactive: return String(localized: "status_inactive")
+        case .unknown: return String(localized: "status_unknown")
+        }
+    }
 }
 
 // MARK: - Repository Collection Extensions
