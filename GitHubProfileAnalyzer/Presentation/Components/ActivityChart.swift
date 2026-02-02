@@ -24,12 +24,12 @@ struct ActivityChart: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                Text("Repository Activity")
+                Text("activity_chart_title")
                     .font(.headline)
                 
                 Spacer()
                 
-                Text("Last 12 months")
+                Text("activity_chart_last_12_months")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -51,8 +51,8 @@ struct ActivityChart: View {
     private var chartView: some View {
         Chart(monthlyActivity) { activity in
             BarMark(
-                x: .value("Month", activity.month, unit: .month),
-                y: .value("Updates", activity.count)
+                x: .value(String(localized: "activity_chart_axis_month"), activity.month, unit: .month),
+                y: .value(String(localized: "activity_chart_axis_updates"), activity.count)
             )
             .foregroundStyle(
                 LinearGradient(
@@ -87,7 +87,7 @@ struct ActivityChart: View {
                 Image(systemName: "chart.bar")
                     .font(.title)
                     .foregroundColor(.secondary)
-                Text("No recent activity")
+                Text("activity_chart_no_activity")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
