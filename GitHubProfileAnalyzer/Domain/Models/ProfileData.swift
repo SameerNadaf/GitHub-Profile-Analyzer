@@ -140,13 +140,13 @@ enum ProfileError: LocalizedError, Equatable {
     var recoverySuggestion: String? {
         switch self {
         case .userNotFound:
-            return "Double-check the username and try again"
+            return String(localized: "error_recovery_not_found")
         case .networkError:
-            return "Check your internet connection"
+            return String(localized: "error_recovery_no_connection")
         case .rateLimited:
-            return "Sign in with GitHub for higher rate limits"
+            return String(localized: "error_recovery_rate_limit")
         case .unknown:
-            return "Please try again"
+            return String(localized: "error_recovery_profile_unknown")
         }
     }
     
@@ -154,13 +154,13 @@ enum ProfileError: LocalizedError, Equatable {
     static func from(_ networkError: NetworkError, username: String? = nil) -> ProfileError {
         switch networkError {
         case .notFound:
-            return .userNotFound(username: username ?? "Unknown")
+            return .userNotFound(username: username ?? String(localized: "common_unknown"))
         case .rateLimitExceeded(let resetDate):
             return .rateLimited(retryAfter: resetDate)
         case .noConnection, .timeout:
-            return .networkError(networkError.errorDescription ?? "Connection failed")
+            return .networkError(networkError.errorDescription ?? String(localized: "error_connection_failed"))
         default:
-            return .unknown(networkError.errorDescription ?? "Unknown error")
+            return .unknown(networkError.errorDescription ?? String(localized: "error_unknown"))
         }
     }
 }
