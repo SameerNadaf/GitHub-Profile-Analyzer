@@ -92,15 +92,15 @@ enum NetworkError: LocalizedError, Equatable {
     var recoverySuggestion: String? {
         switch self {
         case .noConnection:
-            return "Check your internet connection and try again"
+            return String(localized: "error_recovery_no_connection")
         case .timeout:
-            return "The server took too long to respond. Try again later"
+            return String(localized: "error_recovery_timeout")
         case .rateLimitExceeded:
-            return "GitHub limits API requests. Sign in for higher limits"
+            return String(localized: "error_recovery_rate_limit")
         case .notFound:
-            return "Double-check the username and try again"
+            return String(localized: "error_recovery_not_found")
         case .unauthorized:
-            return "Sign in with your GitHub account"
+            return String(localized: "error_recovery_unauthorized")
         default:
             return nil
         }
