@@ -38,7 +38,7 @@ struct SearchScreen: View {
                 Button(action: { router.navigate(to: .comparisonInput) }) {
                     HStack {
                         // VS Badge
-                        Text("VS")
+                        Text(LocalizedStringKey("comparison_vs"))
                             .font(.system(size: 12, weight: .bold))
                             .foregroundColor(.white)
                             .frame(width: 36, height: 36)
