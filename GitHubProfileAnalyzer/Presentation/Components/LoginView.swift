@@ -43,8 +43,8 @@ struct LoginView: View {
                 currentUser = nil
             }
         }
-        .alert("Login Error", isPresented: $showError) {
-            Button("OK", role: .cancel) { }
+        .alert(LocalizedStringKey("auth_login_error_title"), isPresented: $showError) {
+            Button(LocalizedStringKey("common_ok"), role: .cancel) { }
         } message: {
             Text(errorMessage)
         }
@@ -58,14 +58,14 @@ struct LoginView: View {
                 Button(action: {
                     router.navigate(to: .profile(username: user.username))
                 }) {
-                    Label("My Profile", systemImage: "person.circle")
+                    Label(LocalizedStringKey("auth_my_profile"), systemImage: "person.circle")
                 }
             }
             
             Button(role: .destructive, action: {
                 oauthService.signOut()
             }) {
-                Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+                Label(LocalizedStringKey("auth_sign_out"), systemImage: "rectangle.portrait.and.arrow.right")
             }
         } label: {
             HStack(spacing: 8) {
@@ -97,7 +97,7 @@ struct LoginView: View {
     
     private var loginButton: some View {
         Button(action: handleLogin) {
-            Text("Sign In")
+            Text("auth_sign_in")
                 .fontWeight(.medium)
                 .foregroundColor(.white)
                 .padding(.horizontal, 16)
