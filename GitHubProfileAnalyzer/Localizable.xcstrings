@@ -37,6 +37,12 @@
             "state" : "translated",
             "value" : "महीना"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月"
+          }
         }
       }
     },
@@ -53,6 +59,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "अपडेट"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新"
           }
         }
       }
@@ -71,6 +83,12 @@
             "state" : "translated",
             "value" : "पिछले 12 महीने"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "過去12ヶ月"
+          }
         }
       }
     },
@@ -87,6 +105,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "कोई हालिया गतिविधि नहीं"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近のアクティビティはありません"
           }
         }
       }
@@ -105,6 +129,12 @@
             "state" : "translated",
             "value" : "रिपॉजिटरी गतिविधि"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリアクティビティ"
+          }
         }
       }
     },
@@ -121,6 +151,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "GitHub प्रोफ़ाइल विश्लेषण"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHubプロファイル分析"
           }
         }
       }
@@ -139,6 +175,12 @@
             "state" : "translated",
             "value" : "लॉगिन त्रुटि"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログインエラー"
+          }
         }
       }
     },
@@ -155,6 +197,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "मेरी प्रोफ़ाइल"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "マイプロファイル"
           }
         }
       }
@@ -173,6 +221,12 @@
             "state" : "translated",
             "value" : "साइन इन"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインイン"
+          }
         }
       }
     },
@@ -189,6 +243,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "साइन आउट"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインアウト"
           }
         }
       }
@@ -207,6 +267,12 @@
             "state" : "translated",
             "value" : "फॉर्क्स"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フォーク"
+          }
         }
       }
     },
@@ -223,6 +289,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "मैट्रिक"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メトリック"
           }
         }
       }
@@ -241,6 +313,12 @@
             "state" : "translated",
             "value" : "स्कोर"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スコア"
+          }
         }
       }
     },
@@ -257,6 +335,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "सितारे"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スター"
           }
         }
       }
@@ -275,6 +359,12 @@
             "state" : "translated",
             "value" : "कोई रिपॉजिटरी नहीं"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリがありません"
+          }
         }
       }
     },
@@ -291,6 +381,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "शीर्ष रिपॉजिटरी"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "トップリポジトリ"
           }
         }
       }
@@ -312,6 +408,12 @@
             "state" : "translated",
             "value" : "साफ़ करें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリア"
+          }
         }
       }
     },
@@ -329,22 +431,11 @@
             "state" : "translated",
             "value" : "हो गया"
           }
-        }
-      }
-    },
-    "common_unknown" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unknown"
-          }
         },
-        "hi" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अज्ञात"
+            "value" : "完了"
           }
         }
       }
@@ -363,6 +454,12 @@
             "state" : "translated",
             "value" : "त्रुटि"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エラー"
+          }
         }
       }
     },
@@ -379,6 +476,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "लोड हो रहा है..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "読み込み中..."
           }
         }
       }
@@ -397,6 +500,12 @@
             "state" : "translated",
             "value" : "ठीक है"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
         }
       }
     },
@@ -413,6 +522,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "सभी देखें"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべて見る"
           }
         }
       }
@@ -435,6 +550,35 @@
             "state" : "translated",
             "value" : "पुनः प्रयास करें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再試行"
+          }
+        }
+      }
+    },
+    "common_unknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अज्ञात"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不明"
+          }
         }
       }
     },
@@ -444,7 +588,15 @@
     },
     "Compare Profiles" : {
       "comment" : "A title describing the feature of comparing profiles.",
-      "isCommentAutoGenerated" : true
+      "isCommentAutoGenerated" : true,
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロファイルを比較"
+          }
+        }
+      }
     },
     "Comparing: %@" : {
 
@@ -463,6 +615,12 @@
             "state" : "translated",
             "value" : "समुदाय"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コミュニティ"
+          }
         }
       }
     },
@@ -479,6 +637,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "स्वास्थ्य स्कोर"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ヘルススコア"
           }
         }
       }
@@ -497,6 +661,12 @@
             "state" : "translated",
             "value" : "पहला उपयोगकर्ता नाम"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最初のユーザー名"
+          }
         }
       }
     },
@@ -513,6 +683,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "दूसरा उपयोगकर्ता नाम"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2番目のユーザー名"
           }
         }
       }
@@ -531,6 +707,12 @@
             "state" : "translated",
             "value" : "सार्वजनिक रिपो"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パブリックリポジトリ"
+          }
         }
       }
     },
@@ -547,6 +729,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "कुल फॉर्क्स"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "総フォーク数"
           }
         }
       }
@@ -565,6 +753,12 @@
             "state" : "translated",
             "value" : "कुल सितारे"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "総スター数"
+          }
         }
       }
     },
@@ -581,6 +775,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "तुलना"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "比較"
           }
         }
       }
@@ -599,6 +799,12 @@
             "state" : "translated",
             "value" : "रिपॉजिटरी"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリ"
+          }
         }
       }
     },
@@ -615,6 +821,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "स्कोर"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スコア"
           }
         }
       }
@@ -633,6 +845,12 @@
             "state" : "translated",
             "value" : "अभी तुलना करें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今すぐ比較"
+          }
         }
       }
     },
@@ -649,6 +867,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "देखें कि किसके पास बेहतर आँकड़े, स्वास्थ्य स्कोर और बहुत कुछ है।"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "統計、ヘルススコアなどを比較します。"
           }
         }
       }
@@ -667,6 +891,12 @@
             "state" : "translated",
             "value" : "प्रोफ़ाइल तुलना करें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロファイルを比較"
+          }
         }
       }
     },
@@ -683,6 +913,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "बनाम"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VS"
           }
         }
       }
@@ -701,6 +937,12 @@
             "state" : "translated",
             "value" : "खोज साफ़ करें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索をクリア"
+          }
         }
       }
     },
@@ -717,6 +959,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "कृपया अपना इंटरनेट कनेक्शन जांचें और पुनः प्रयास करें।"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "インターネット接続を確認して、もう一度お試しください。"
           }
         }
       }
@@ -735,6 +983,12 @@
             "state" : "translated",
             "value" : "कनेक्शन त्रुटि"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "接続エラー"
+          }
         }
       }
     },
@@ -751,6 +1005,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "इस उपयोगकर्ता के पास अभी तक कोई सार्वजनिक रिपॉजिटरी नहीं है।"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このユーザーにはまだパブリックリポジトリがありません。"
           }
         }
       }
@@ -769,6 +1029,12 @@
             "state" : "translated",
             "value" : "कोई रिपॉजिटरी नहीं"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリなし"
+          }
         }
       }
     },
@@ -785,6 +1051,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "'%@' से मेल खाने वाली कोई रिपॉजिटरी नहीं मिली"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'%@' に一致するリポジトリはありません"
           }
         }
       }
@@ -803,6 +1075,12 @@
             "state" : "translated",
             "value" : "कोई परिणाम नहीं"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "結果なし"
+          }
         }
       }
     },
@@ -819,6 +1097,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "GitHub API दर सीमा पार हो गई। कृपया बाद में पुनः प्रयास करें।"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub APIのレート制限を超えました。後でもう一度お試しください。"
           }
         }
       }
@@ -837,6 +1121,12 @@
             "state" : "translated",
             "value" : "दर सीमा पार"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レート制限"
+          }
         }
       }
     },
@@ -853,6 +1143,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "उपयोगकर्ता नाम '%@' वाला कोई GitHub उपयोगकर्ता नहीं है।"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザー名 '%@' のGitHubユーザーは存在しません。"
           }
         }
       }
@@ -871,12 +1167,26 @@
             "state" : "translated",
             "value" : "उपयोगकर्ता नहीं मिला"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザーが見つかりません"
+          }
         }
       }
     },
     "Error" : {
       "comment" : "The title of an alert that displays an error message.",
-      "isCommentAutoGenerated" : true
+      "isCommentAutoGenerated" : true,
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エラー"
+          }
+        }
+      }
     },
     "error_bad_request" : {
       "extractionState" : "manual",
@@ -891,6 +1201,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "अमान्य अनुरोध"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無効なリクエスト"
           }
         }
       }
@@ -909,8 +1225,18 @@
             "state" : "translated",
             "value" : "अनुरोध रद्द कर दिया गया था"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リクエストがキャンセルされました"
+          }
         }
       }
+    },
+    "error_connection_failed" : {
+      "comment" : "Suggestion to the user to try again if the error is due to a network issue.",
+      "isCommentAutoGenerated" : true
     },
     "error_decoding" : {
       "extractionState" : "manual",
@@ -925,6 +1251,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "प्रतिक्रिया संसाधित करने में विफल: %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "応答の処理に失敗しました: %@"
           }
         }
       }
@@ -943,6 +1275,12 @@
             "state" : "translated",
             "value" : "पहुंच निषिद्ध"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクセスが禁止されています"
+          }
         }
       }
     },
@@ -959,6 +1297,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "अमान्य URL: %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無効なURL: %@"
           }
         }
       }
@@ -977,6 +1321,12 @@
             "state" : "translated",
             "value" : "अमान्य उपयोगकर्ता नाम"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無効なユーザー名"
+          }
         }
       }
     },
@@ -993,6 +1343,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "उपयोगकर्ताओं की अमान्य संख्या"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無効なユーザー数"
           }
         }
       }
@@ -1011,6 +1367,12 @@
             "state" : "translated",
             "value" : "नेटवर्क त्रुटि हुई"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ネットワークエラーが発生しました"
+          }
         }
       }
     },
@@ -1027,6 +1389,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "कोई इंटरनेट कनेक्शन नहीं"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "インターネット接続がありません"
           }
         }
       }
@@ -1045,6 +1413,12 @@
             "state" : "translated",
             "value" : "%@ नहीं मिला"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ が見つかりません"
+          }
         }
       }
     },
@@ -1061,6 +1435,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "नेटवर्क त्रुटि: %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ネットワークエラー: %@"
           }
         }
       }
@@ -1079,6 +1459,12 @@
             "state" : "translated",
             "value" : "दर सीमित। पुनः प्रयास करें %@"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レート制限されています。%@ 後に再試行してください"
+          }
         }
       }
     },
@@ -1095,6 +1481,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "दर सीमित। कृपया बाद में पुनः प्रयास करें"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レート制限されています。後でもう一度お試しください"
           }
         }
       }
@@ -1113,6 +1505,12 @@
             "state" : "translated",
             "value" : "उपयोगकर्ता '%@' नहीं मिला"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザー '%@' が見つかりません"
+          }
         }
       }
     },
@@ -1129,6 +1527,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "दर सीमा पार हो गई। कृपया बाद में पुनः प्रयास करें"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レート制限を超えました。後でもう一度お試しください"
           }
         }
       }
@@ -1147,8 +1551,38 @@
             "state" : "translated",
             "value" : "दर सीमा पार हो गई। पुनः प्रयास करें %@"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レート制限を超えました。%@ 後に再試行してください"
+          }
         }
       }
+    },
+    "error_recovery_no_connection" : {
+      "comment" : "Suggestion for recovering from a \"no connection\" network error.",
+      "isCommentAutoGenerated" : true
+    },
+    "error_recovery_not_found" : {
+      "comment" : "Recovery suggestion for a \"Resource not found (404)\" network error.",
+      "isCommentAutoGenerated" : true
+    },
+    "error_recovery_profile_unknown" : {
+      "comment" : "Recovery suggestion for an unknown profile error.",
+      "isCommentAutoGenerated" : true
+    },
+    "error_recovery_rate_limit" : {
+      "comment" : "Recovery suggestion for a \"Rate limit exceeded\" network error.",
+      "isCommentAutoGenerated" : true
+    },
+    "error_recovery_timeout" : {
+      "comment" : "Suggestion to the user to try again after a timeout.",
+      "isCommentAutoGenerated" : true
+    },
+    "error_recovery_unauthorized" : {
+      "comment" : "Recovery suggestion for an \"unauthorized\" network error.",
+      "isCommentAutoGenerated" : true
     },
     "error_server_error" : {
       "extractionState" : "manual",
@@ -1163,6 +1597,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "सर्वर त्रुटि (%lld): %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーエラー (%lld): %@"
           }
         }
       }
@@ -1181,6 +1621,12 @@
             "state" : "translated",
             "value" : "सर्वर त्रुटि: %lld"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーエラー: %lld"
+          }
         }
       }
     },
@@ -1197,6 +1643,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "अनुरोध का समय समाप्त हो गया"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リクエストがタイムアウトしました"
           }
         }
       }
@@ -1215,6 +1667,12 @@
             "state" : "translated",
             "value" : "प्रमाणीकरण आवश्यक"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "認証が必要です"
+          }
         }
       }
     },
@@ -1231,6 +1689,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "एक अज्ञात त्रुटि हुई"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不明なエラーが発生しました"
           }
         }
       }
@@ -1249,6 +1713,12 @@
             "state" : "translated",
             "value" : "उपयोगकर्ता नहीं मिला"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザーが見つかりません"
+          }
         }
       }
     },
@@ -1265,6 +1735,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "विवरण छुपाएं"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細を隠す"
           }
         }
       }
@@ -1283,6 +1759,12 @@
             "state" : "translated",
             "value" : "विवरण दिखाएं"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細を表示"
+          }
         }
       }
     },
@@ -1299,6 +1781,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "प्रोफ़ाइल स्वास्थ्य"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロファイルヘルス"
           }
         }
       }
@@ -1317,6 +1805,12 @@
             "state" : "translated",
             "value" : "गतिविधि"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクティビティ"
+          }
         }
       }
     },
@@ -1333,6 +1827,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "समुदाय"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コミュニティ"
           }
         }
       }
@@ -1351,6 +1851,12 @@
             "state" : "translated",
             "value" : "भाषाएँ"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "言語"
+          }
         }
       }
     },
@@ -1367,6 +1873,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "प्रोफ़ाइल"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロファイル"
           }
         }
       }
@@ -1385,6 +1897,12 @@
             "state" : "translated",
             "value" : "रिपॉजिटरी गुणवत्ता"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリ品質"
+          }
         }
       }
     },
@@ -1401,6 +1919,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld%% पूर्ण"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld%% 完了"
           }
         }
       }
@@ -1419,6 +1943,12 @@
             "state" : "translated",
             "value" : "औसत रखरखाव: %lld%%"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "平均メンテナンス: %lld%%"
+          }
         }
       }
     },
@@ -1435,6 +1965,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "प्रोफ़ाइल विश्लेषण करें"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロファイルを分析"
           }
         }
       }
@@ -1453,6 +1989,12 @@
             "state" : "translated",
             "value" : "आँकड़ों में कौन जीतता है देखें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "統計でどちらが勝っているか確認"
+          }
         }
       }
     },
@@ -1469,6 +2011,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "प्रोफ़ाइल तुलना करें"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロファイルを比較"
           }
         }
       }
@@ -1487,6 +2035,12 @@
             "state" : "translated",
             "value" : "GitHub उपयोगकर्ता नाम दर्ज करें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHubユーザー名を入力"
+          }
         }
       }
     },
@@ -1503,6 +2057,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "गतिविधि"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクティビティ"
           }
         }
       }
@@ -1521,6 +2081,12 @@
             "state" : "translated",
             "value" : "स्वास्थ्य स्कोर"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ヘルススコア"
+          }
         }
       }
     },
@@ -1537,6 +2103,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "भाषाएँ"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "言語"
           }
         }
       }
@@ -1555,6 +2127,12 @@
             "state" : "translated",
             "value" : "रिपो आँकड़े"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポ統計"
+          }
         }
       }
     },
@@ -1571,6 +2149,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "आप क्या खोजेंगे"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "発見できること"
           }
         }
       }
@@ -1589,6 +2173,12 @@
             "state" : "translated",
             "value" : "हाल की खोजें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近の検索"
+          }
         }
       }
     },
@@ -1605,6 +2195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "किसी भी GitHub प्रोफ़ाइल के बारे में जानकारी खोजें"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHubプロフェイルに関する洞察を発見"
           }
         }
       }
@@ -1623,6 +2219,12 @@
             "state" : "translated",
             "value" : "+ %lld और"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ %lld その他"
+          }
         }
       }
     },
@@ -1639,6 +2241,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "कोई भाषा डेटा उपलब्ध नहीं है"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "言語データがありません"
           }
         }
       }
@@ -1657,12 +2265,26 @@
             "state" : "translated",
             "value" : "भाषा वितरण"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "言語分布"
+          }
         }
       }
     },
     "OK" : {
       "comment" : "The text for the default action button in an alert.",
-      "isCommentAutoGenerated" : true
+      "isCommentAutoGenerated" : true,
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "profile_activity_status" : {
       "extractionState" : "manual",
@@ -1677,6 +2299,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "गतिविधि स्थिति"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクティビティステータス"
           }
         }
       }
@@ -1695,6 +2323,12 @@
             "state" : "translated",
             "value" : "विविधता"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "多様性"
+          }
         }
       }
     },
@@ -1711,6 +2345,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "भाषा वितरण"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "言語分布"
           }
         }
       }
@@ -1729,6 +2369,12 @@
             "state" : "translated",
             "value" : "कोई भाषा डेटा उपलब्ध नहीं है"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "言語データがありません"
+          }
         }
       }
     },
@@ -1745,6 +2391,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "रिपॉजिटरी सारांश"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリ概要"
           }
         }
       }
@@ -1763,6 +2415,12 @@
             "state" : "translated",
             "value" : "फ़ॉलोअर्स"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フォロワー"
+          }
         }
       }
     },
@@ -1779,6 +2437,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "फ़ॉलोइंग"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フォロー中"
           }
         }
       }
@@ -1797,6 +2461,12 @@
             "state" : "translated",
             "value" : "रिपॉजिटरी"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリ"
+          }
         }
       }
     },
@@ -1813,6 +2483,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "सितारे"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スター"
           }
         }
       }
@@ -1831,6 +2507,12 @@
             "state" : "translated",
             "value" : "सक्रिय (6 महीने)"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクティブ (6ヶ月)"
+          }
         }
       }
     },
@@ -1847,6 +2529,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "औसत रखरखाव"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "平均メンテナンス"
           }
         }
       }
@@ -1865,6 +2553,12 @@
             "state" : "translated",
             "value" : "मूल (फॉर्क नहीं)"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オリジナル (非フォーク)"
+          }
         }
       }
     },
@@ -1882,6 +2576,12 @@
             "state" : "translated",
             "value" : "सितारे प्रति रिपो"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリごとのスター数"
+          }
         }
       }
     },
@@ -1898,6 +2598,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "कुल रिपॉजिटरी"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "総リポジトリ"
           }
         }
       }
@@ -1920,6 +2626,12 @@
             "state" : "translated",
             "value" : "आर्काइव्ड"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アーカイブ済み"
+          }
         }
       }
     },
@@ -1936,6 +2648,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "रिपॉजिटरी"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリ"
           }
         }
       }
@@ -1954,6 +2672,12 @@
             "state" : "translated",
             "value" : "फ़िल्टर बदलने का प्रयास करें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フィルタを変更してみてください"
+          }
         }
       }
     },
@@ -1970,6 +2694,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "एक अलग खोज शब्द का प्रयास करें"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "別の検索語を試してください"
           }
         }
       }
@@ -1988,6 +2718,12 @@
             "state" : "translated",
             "value" : "कोई रिपॉजिटरी नहीं मिली"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリが見つかりません"
+          }
         }
       }
     },
@@ -2004,6 +2740,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "फ़िल्टर"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フィルタ"
           }
         }
       }
@@ -2022,6 +2764,12 @@
             "state" : "translated",
             "value" : "रिपॉजिटरी"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリ"
+          }
         }
       }
     },
@@ -2038,6 +2786,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "रिपॉजिटरी लोड हो रही है..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリを読み込み中..."
           }
         }
       }
@@ -2056,6 +2810,12 @@
             "state" : "translated",
             "value" : "रिपॉजिटरी खोजें..."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリを検索..."
+          }
         }
       }
     },
@@ -2073,6 +2833,12 @@
             "state" : "translated",
             "value" : "क्रमबद्ध करें"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "並べ替え"
+          }
         }
       }
     },
@@ -2089,6 +2855,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "इसके अनुसार क्रमबद्ध करें"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "並べ替え順"
           }
         }
       }
@@ -2111,6 +2883,12 @@
             "state" : "translated",
             "value" : "सक्रिय"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アクティブ"
+          }
         }
       }
     },
@@ -2127,6 +2905,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "निष्क्रिय"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非アクティブ"
           }
         }
       }
@@ -2145,6 +2929,12 @@
             "state" : "translated",
             "value" : "मध्यम"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "普通"
+          }
         }
       }
     },
@@ -2161,6 +2951,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "हाल ही में"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近"
           }
         }
       }
@@ -2179,6 +2975,12 @@
             "state" : "translated",
             "value" : "पुराना"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "古い"
+          }
         }
       }
     },
@@ -2195,6 +2997,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "अज्ञात"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不明"
           }
         }
       }
@@ -2213,6 +3021,12 @@
             "state" : "translated",
             "value" : "%lld दिन पहले"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 日前"
+          }
         }
       }
     },
@@ -2229,6 +3043,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld महीने पहले"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ヶ月前"
           }
         }
       }
@@ -2247,6 +3067,12 @@
             "state" : "translated",
             "value" : "आज"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日"
+          }
         }
       }
     },
@@ -2263,6 +3089,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld सप्ताह पहले"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 週間前"
           }
         }
       }
@@ -2281,6 +3113,12 @@
             "state" : "translated",
             "value" : "%lld साल पहले"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 年前"
+          }
         }
       }
     },
@@ -2298,6 +3136,12 @@
             "state" : "translated",
             "value" : "कल"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "昨日"
+          }
         }
       }
     },
@@ -2306,7 +3150,15 @@
       "isCommentAutoGenerated" : true
     },
     "VS" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VS"
+          }
+        }
+      }
     }
   },
   "version" : "1.1"
